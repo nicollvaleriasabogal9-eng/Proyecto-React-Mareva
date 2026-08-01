@@ -1,0 +1,58 @@
+.paquetes-container {
+  flex: 2;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+.paquete-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.paquete-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 42px rgba(15, 23, 42, 0.12);
+}
+
+.paquete-card h2 {
+  margin: 0 0 14px;
+  font-size: 1.2rem;
+}
+
+.paquete-card p {
+  margin: 8px 0;
+  line-height: 1.5;
+  color: #334155;
+}
+
+.paquete-card strong {
+  color: #0f172a;
+}
+
+.paquete-price {
+  margin: 18px 0 12px;
+  color: #0b76ff;
+  font-size: 1.3rem;
+}
+
+.paquete-button {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 12px;
+  background: #2d6cdf;
+  color: #ffffff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.paquete-button:hover {
+  background: #1c4db2;
+}
