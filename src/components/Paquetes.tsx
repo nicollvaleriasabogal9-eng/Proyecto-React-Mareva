@@ -1,6 +1,20 @@
+import CardAccion from "./CardAccion";
+import "./Paquetes.css";
 
+interface Paquete {
+  slug: string;
+  nombre: string;
+  categoria: string;
+  precio: number;
+  duracion_dias: number;
+  duracion_noches: number;
+  descripcion: string;
+  destino: string;
+  departamento: string;
+  imagen: string;
+}
 
-const PAQUETES = [
+const PAQUETES: Paquete[] = [
   {
     slug: "cartagena-magica",
     nombre: "Cartagena Mágica",
@@ -10,9 +24,9 @@ const PAQUETES = [
     duracion_noches: 4,
     descripcion:
       "Descubre la ciudad amurallada con playas privadas e historia colonial.",
-    emoji: "🏰",
     destino: "Cartagena",
     departamento: "Bolívar",
+    imagen: "/destinos/cartagena.jpg",
   },
   {
     slug: "medellin-innovadora",
@@ -23,9 +37,9 @@ const PAQUETES = [
     duracion_noches: 3,
     descripcion:
       "Conoce la ciudad más transformadora de América Latina.",
-    emoji: "🚡",
     destino: "Medellín",
     departamento: "Antioquia",
+    imagen: "/destinos/medellin.jpg",
   },
   {
     slug: "guatape-extremo",
@@ -36,9 +50,9 @@ const PAQUETES = [
     duracion_noches: 2,
     descripcion:
       "Adrenalina pura: sube la Piedra del Peñol y navega el embalse.",
-    emoji: "🪨",
     destino: "Guatapé",
     departamento: "Antioquia",
+    imagen: "/destinos/guatape.jpg",
   },
   {
     slug: "san-andres-todo-incluido",
@@ -49,9 +63,9 @@ const PAQUETES = [
     duracion_noches: 6,
     descripcion:
       "El mar de los siete colores con todo incluido en resort 5 estrellas.",
-    emoji: "🏝️",
     destino: "San Andrés",
     departamento: "San Andrés",
+    imagen: "/destinos/san-andres.jpg",
   },
   {
     slug: "tayrona-salvaje",
@@ -62,9 +76,9 @@ const PAQUETES = [
     duracion_noches: 4,
     descripcion:
       "Selva, playas vírgenes y ecosistemas únicos en el Parque Tayrona.",
-    emoji: "🌴",
     destino: "Parque Tayrona",
     departamento: "Magdalena",
+    imagen: "/destinos/tayrona.jpg",
   },
   {
     slug: "valle-cocora-mistico",
@@ -75,9 +89,9 @@ const PAQUETES = [
     duracion_noches: 2,
     descripcion:
       "Caminata entre palmas de cera y fincas cafeteras del Quindío.",
-    emoji: "🌿",
     destino: "Valle del Cocora",
     departamento: "Quindío",
+    imagen: "/destinos/valle-cocora.jpg",
   },
   {
     slug: "amazonas-aventura",
@@ -88,9 +102,9 @@ const PAQUETES = [
     duracion_noches: 5,
     descripcion:
       "Explora la selva amazónica y conoce comunidades indígenas.",
-    emoji: "🦜",
     destino: "Leticia",
     departamento: "Amazonas",
+    imagen: "/destinos/amazonas.jpg",
   },
   {
     slug: "tatacoa",
@@ -101,9 +115,9 @@ const PAQUETES = [
     duracion_noches: 2,
     descripcion:
       "Observación astronómica y recorridos por paisajes únicos.",
-    emoji: "🌵",
     destino: "Desierto Tatacoa",
     departamento: "Huila",
+    imagen: "/destinos/tatacoa.jpg",
   },
   {
     slug: "cano-cristales",
@@ -114,9 +128,9 @@ const PAQUETES = [
     duracion_noches: 4,
     descripcion:
       "Visita el río más hermoso del mundo con guía especializado.",
-    emoji: "🌈",
     destino: "Caño Cristales",
     departamento: "Meta",
+    imagen: "/destinos/cano-cristales.jpg",
   },
   {
     slug: "eje-cafetero",
@@ -127,9 +141,9 @@ const PAQUETES = [
     duracion_noches: 3,
     descripcion:
       "Recorrido por fincas cafeteras y pueblos patrimonio.",
-    emoji: "☕",
     destino: "Armenia",
     departamento: "Quindío",
+    imagen: "/destinos/eje-cafetero.jpg",
   },
   {
     slug: "nuqui-ecoturismo",
@@ -140,9 +154,9 @@ const PAQUETES = [
     duracion_noches: 4,
     descripcion:
       "Avistamiento de ballenas y playas vírgenes del Pacífico.",
-    emoji: "🐋",
     destino: "Nuquí",
     departamento: "Chocó",
+    imagen: "/destinos/nuqui.jpg",
   },
   {
     slug: "barichara-colonial",
@@ -153,20 +167,132 @@ const PAQUETES = [
     duracion_noches: 2,
     descripcion:
       "Conoce uno de los pueblos más bellos de Colombia.",
-    emoji: "🏘️",
     destino: "Barichara",
     departamento: "Santander",
+    imagen: "/destinos/barichara.jpg",
+  },
+  {
+    slug: "santuario-las-lajas",
+    nombre: "Santuario Las Lajas",
+    categoria: "Cultural",
+    precio: 680000,
+    duracion_dias: 3,
+    duracion_noches: 2,
+    descripcion:
+      "Basílica neogótica construida sobre un cañón.",
+    destino: "Ipiales",
+    departamento: "Nariño",
+    imagen: "/destinos/las-lajas.jpg",
+  },
+  {
+    slug: "boyaca-historica",
+    nombre: "Boyacá Histórica",
+    categoria: "Cultural",
+    precio: 980000,
+    duracion_dias: 4,
+    duracion_noches: 3,
+    descripcion:
+      "Villa de Leyva, Ráquira y monumentos históricos.",
+    destino: "Villa de Leyva",
+    departamento: "Boyacá",
+    imagen: "/destinos/boyaca.jpg",
+  },
+  {
+    slug: "canon-del-chicamocha",
+    nombre: "Cañón del Chicamocha",
+    categoria: "Aventura",
+    precio: 1150000,
+    duracion_dias: 4,
+    duracion_noches: 3,
+    descripcion:
+      "Deportes extremos y paisajes espectaculares.",
+    destino: "San Gil",
+    departamento: "Santander",
+    imagen: "/destinos/chicamocha.jpg",
+  },
+  {
+    slug: "mompox-patrimonial",
+    nombre: "Mompox Patrimonial",
+    categoria: "Cultural",
+    precio: 1250000,
+    duracion_dias: 4,
+    duracion_noches: 3,
+    descripcion:
+      "Historia, arquitectura colonial y cultura ribereña.",
+    destino: "Mompox",
+    departamento: "Bolívar",
+    imagen: "/destinos/mompox.jpg",
+  },
+  {
+    slug: "sierra-nevada-ancestral",
+    nombre: "Sierra Nevada Ancestral",
+    categoria: "Aventura",
+    precio: 2100000,
+    duracion_dias: 5,
+    duracion_noches: 4,
+    descripcion:
+      "Conexión con comunidades indígenas y naturaleza.",
+    destino: "Santa Marta",
+    departamento: "Magdalena",
+    imagen: "/destinos/sierra-nevada.jpg",
+  },
+  {
+    slug: "tolu-covenas-relax",
+    nombre: "Tolú y Coveñas Relax",
+    categoria: "Playa",
+    precio: 1100000,
+    duracion_dias: 4,
+    duracion_noches: 3,
+    descripcion:
+      "Playas tranquilas y actividades acuáticas.",
+    destino: "Tolú",
+    departamento: "Sucre",
+    imagen: "/destinos/tolu.jpg",
+  },
+  {
+    slug: "isla-gorgona-explorer",
+    nombre: "Isla Gorgona Explorer",
+    categoria: "Aventura",
+    precio: 2800000,
+    duracion_dias: 5,
+    duracion_noches: 4,
+    descripcion:
+      "Naturaleza, senderismo y biodiversidad marina.",
+    destino: "Guapi",
+    departamento: "Cauca",
+    imagen: "/destinos/gorgona.jpg",
+  },
+  {
+    slug: "capurgana-paraiso",
+    nombre: "Capurganá Paraíso",
+    categoria: "Playa",
+    precio: 1900000,
+    duracion_dias: 5,
+    duracion_noches: 4,
+    descripcion:
+      "Playas cristalinas y ecoturismo en el Caribe colombiano.",
+    destino: "Acandí",
+    departamento: "Chocó",
+    imagen: "/destinos/capurgana.jpg",
   },
 ];
 
 function Paquetes() {
+  const manejarAccion = (nombre: string) => {
+    alert(`Se realizó una acción en el módulo Paquetes: ${nombre}`);
+    console.log(`Acción realizada en Paquetes: ${nombre}`);
+  };
+
   return (
-    <div className="paquetes-container">
+    <section className="paquetes-seccion">
+      <div className="paquetes-encabezado">
+        <span className="paquetes-etiqueta">
+          MAREVA · VIAJES POR COLOMBIA
+        </span>
 
-      <div className="paquetes-header">
-        <span>MAREVA • VIAJES POR COLOMBIA</span>
-
-        <h1>Descubre tu próximo destino</h1>
+        <h1>
+          Descubre tu próximo <span>destino</span>
+        </h1>
 
         <p>
           Explora nuestros paquetes turísticos y vive experiencias
@@ -175,23 +301,26 @@ function Paquetes() {
       </div>
 
       <div className="paquetes-grid">
-
         {PAQUETES.map((paquete) => (
-          <div className="paquete-card" key={paquete.slug}>
-
-            <div className="paquete-emoji">
-              {paquete.emoji}
+          <article className="paquete-card" key={paquete.slug}>
+            <div className="paquete-imagen-container">
+              <img
+                src={paquete.imagen}
+                alt={paquete.nombre}
+                className="paquete-imagen"
+              />
             </div>
 
-            <div className="paquete-content">
-
+            <div className="paquete-contenido">
               <span className="paquete-categoria">
                 {paquete.categoria}
               </span>
 
-              <h2>{paquete.nombre}</h2>
+              <h2 className="paquete-nombre">
+                {paquete.nombre}
+              </h2>
 
-              <div className="paquete-info">
+              <div className="paquete-datos">
                 <p>
                   📍 <strong>{paquete.destino}</strong>,{" "}
                   {paquete.departamento}
@@ -208,8 +337,7 @@ function Paquetes() {
               </p>
 
               <div className="paquete-footer">
-
-                <div>
+                <div className="paquete-precio">
                   <span>Desde</span>
 
                   <strong>
@@ -217,20 +345,21 @@ function Paquetes() {
                   </strong>
                 </div>
 
-                <button>
-                  Reservar
-                </button>
-
+                <CardAccion
+                  titulo=""
+                  texto=""
+                  estado=""
+                  boton="Reservar"
+                  onAccion={() =>
+                    manejarAccion(paquete.nombre)
+                  }
+                />
               </div>
-
             </div>
-
-          </div>
+          </article>
         ))}
-
       </div>
-
-    </div>
+    </section>
   );
 }
 
