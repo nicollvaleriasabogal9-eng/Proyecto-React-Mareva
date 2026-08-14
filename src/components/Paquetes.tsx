@@ -14,6 +14,10 @@ interface Paquete {
   imagen: string;
 }
 
+interface PaquetesProps {
+  mostrarMensaje: (titulo: string, mensaje: string) => void;
+}
+
 const PAQUETES: Paquete[] = [
   {
     slug: "cartagena-magica",
@@ -277,12 +281,7 @@ const PAQUETES: Paquete[] = [
   },
 ];
 
-function Paquetes() {
-  const manejarAccion = (nombre: string) => {
-    alert(`Se realizó una acción en el módulo Paquetes: ${nombre}`);
-    console.log(`Acción realizada en Paquetes: ${nombre}`);
-  };
-
+function Paquetes({ mostrarMensaje }: PaquetesProps) {
   return (
     <section className="paquetes-seccion">
       <div className="paquetes-encabezado">
@@ -351,7 +350,10 @@ function Paquetes() {
                   estado=""
                   boton="Reservar"
                   onAccion={() =>
-                    manejarAccion(paquete.nombre)
+                    mostrarMensaje(
+                      "¡Paquete seleccionado!",
+                      `Has seleccionado el paquete ${paquete.nombre}. ¡Prepárate para vivir una experiencia inolvidable!`
+                    )
                   }
                 />
               </div>
