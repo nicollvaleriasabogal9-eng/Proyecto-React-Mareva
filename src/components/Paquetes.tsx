@@ -291,7 +291,7 @@ function Paquetes() {
         </span>
 
         <h1>
-          Descubre tu próximo <span>destino</span>
+          Descubre tu próximo <em>destino</em>
         </h1>
 
         <p>
