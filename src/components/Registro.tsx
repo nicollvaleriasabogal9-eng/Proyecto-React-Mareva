@@ -1,7 +1,11 @@
 import { useState } from "react";
 import CardAccion from "./CardAccion";
 
-function Registro() {
+interface RegistroProps {
+  mostrarMensaje: (titulo: string, mensaje: string) => void;
+}
+
+function Registro({ mostrarMensaje }: RegistroProps) {
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
   const [telefono, setTelefono] = useState("");
@@ -11,23 +15,22 @@ function Registro() {
     e.preventDefault();
 
     if (!correo.includes("@")) {
-      alert("El correo electrónico debe contener al menos un @.");
+      mostrarMensaje(
+        "Correo no válido",
+        "El correo electrónico debe contener al menos un @. Verifica tus datos e inténtalo nuevamente."
+      );
       return;
     }
 
-    alert(
-      `Registro exitoso en MAREVA\n\n` +
-      `Nombre: ${nombre}\n` +
-      `Correo: ${correo}\n` +
-      `Teléfono: ${telefono}\n` +
-      `Contraseña: ${contrasena}`
+    mostrarMensaje(
+      "¡Registro exitoso!",
+      `Bienvenido a MAREVA, ${nombre}. Tu cuenta fue creada correctamente con el correo ${correo}.`
     );
 
     console.log("Acción realizada en el módulo Registro");
-  };
-
-  const manejarAccion = () => {
-    console.log("Acción realizada en el módulo Registro");
+    console.log("Nombre:", nombre);
+    console.log("Correo:", correo);
+    console.log("Teléfono:", telefono);
   };
 
   return (
@@ -79,7 +82,7 @@ function Registro() {
               <label>Correo electrónico</label>
 
               <input
-                type="text"
+                type="email"
                 value={correo}
                 onChange={(e) => setCorreo(e.target.value)}
                 placeholder="correo@ejemplo.com"
@@ -116,7 +119,15 @@ function Registro() {
               texto="Registrar nuevo usuario"
               estado="Disponible"
               boton="Registrarme"
-              onAccion={manejarAccion}
+              onAccion={() => {
+                const formulario = document.querySelector(
+                  ".registro-form"
+                ) as HTMLFormElement;
+
+                if (formulario) {
+                  formulario.requestSubmit();
+                }
+              }}
             />
 
           </form>
