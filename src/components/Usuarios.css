@@ -37,3 +37,42 @@
 .usuarios-table td {
   border-bottom: 1px solid #f0f2f8;
 }
+.usuarios-table-wrapper {
+  flex: 1;
+  padding: 24px;
+}
+
+.usuarios-table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 2px 16px rgba(15, 23, 42, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.usuarios-table th,
+.usuarios-table td {
+  padding: 14px 18px;
+  text-align: left;
+}
+
+.usuarios-table th {
+  background: #2d6cdf;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+.usuarios-table tbody tr:nth-child(even) {
+  background: #f6f8ff;
+}
+
+.usuarios-table tbody tr:hover {
+  background: #e9efff;
+}
+
+.usuarios-table td {
+  border-bottom: 1px solid #f0f2f8;
+}
