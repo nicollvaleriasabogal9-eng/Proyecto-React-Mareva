@@ -11,6 +11,33 @@ import Reservas from "./components/Reservas";
 function App() {
   const [pagina, setPagina] = useState("inicio");
 
+  const mostrarMensaje = (titulo: string, mensaje: string) => {
+    const modal = document.createElement("div");
+    modal.className = "modal-reserva";
+
+    modal.innerHTML = `
+      <div class="modal-contenido">
+        <div class="modal-icono">✈️</div>
+
+        <h2>${titulo}</h2>
+
+        <p>${mensaje}</p>
+
+        <button id="cerrarModal">Aceptar</button>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    document
+      .getElementById("cerrarModal")
+      ?.addEventListener("click", () => {
+        modal.remove();
+      });
+
+    console.log(`${titulo}: ${mensaje}`);
+  };
+
   return (
     <div className="app-layout">
       <Sidebar
@@ -47,15 +74,25 @@ function App() {
           </section>
         )}
 
-        {pagina === "paquetes" && <Paquetes />}
+        {pagina === "paquetes" && (
+          <Paquetes mostrarMensaje={mostrarMensaje} />
+        )}
 
-        {pagina === "usuarios" && <Usuarios />}
+        {pagina === "usuarios" && (
+          <Usuarios mostrarMensaje={mostrarMensaje} />
+        )}
 
-        {pagina === "reservas" && <Reservas />}
+        {pagina === "reservas" && (
+          <Reservas mostrarMensaje={mostrarMensaje} />
+        )}
 
-        {pagina === "login" && <Login />}
+        {pagina === "login" && (
+          <Login mostrarMensaje={mostrarMensaje} />
+        )}
 
-        {pagina === "registro" && <Registro />}
+        {pagina === "registro" && (
+          <Registro mostrarMensaje={mostrarMensaje} />
+        )}
 
       </main>
     </div>
