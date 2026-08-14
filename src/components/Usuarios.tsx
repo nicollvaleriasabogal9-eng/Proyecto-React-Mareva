@@ -1,6 +1,10 @@
 import CardAccion from "./CardAccion";
 
-function Usuarios() {
+interface UsuariosProps {
+  mostrarMensaje: (titulo: string, mensaje: string) => void;
+}
+
+function Usuarios({ mostrarMensaje }: UsuariosProps) {
   const usuarios = [
     {
       id: 1,
@@ -44,11 +48,6 @@ function Usuarios() {
     },
   ];
 
-  const manejarAccion = (nombre: string) => {
-    alert(`Acción realizada en el módulo Usuarios: ${nombre}`);
-    console.log(`Acción realizada en Usuarios: ${nombre}`);
-  };
-
   return (
     <section className="usuarios-section" id="usuarios">
       <div className="usuarios-header">
@@ -75,7 +74,12 @@ function Usuarios() {
 
           <button
             className="btn-agregar"
-            onClick={() => manejarAccion("Agregar usuario")}
+            onClick={() =>
+              mostrarMensaje(
+                "¡Agregar usuario!",
+                "La opción para registrar un nuevo usuario fue seleccionada correctamente."
+              )
+            }
           >
             + Agregar usuario
           </button>
@@ -133,7 +137,10 @@ function Usuarios() {
                       estado={usuario.estado}
                       boton="Ver"
                       onAccion={() =>
-                        manejarAccion(usuario.nombre)
+                        mostrarMensaje(
+                          "¡Usuario encontrado!",
+                          `Estás consultando la información de ${usuario.nombre}.`
+                        )
                       }
                     />
                   </td>
