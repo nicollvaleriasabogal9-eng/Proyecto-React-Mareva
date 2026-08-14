@@ -1,6 +1,10 @@
 import CardAccion from "./CardAccion";
 
-function Reservas() {
+interface ReservasProps {
+  mostrarMensaje: (titulo: string, mensaje: string) => void;
+}
+
+function Reservas({ mostrarMensaje }: ReservasProps) {
   const reservas = [
     {
       destino: "Cartagena Mágica",
@@ -22,11 +26,6 @@ function Reservas() {
     },
   ];
 
-  const manejarReserva = (destino: string) => {
-    alert(`Se realizó una acción en el módulo Reservas para: ${destino}`);
-    console.log(`Acción realizada en Reservas: ${destino}`);
-  };
-
   return (
     <section className="modulo-section" id="reservas">
       <div className="modulo-header">
@@ -47,7 +46,12 @@ function Reservas() {
             texto={`${reserva.cliente} · ${reserva.fecha}`}
             estado={reserva.estado}
             boton="Ver reserva"
-            onAccion={() => manejarReserva(reserva.destino)}
+            onAccion={() =>
+              mostrarMensaje(
+                "¡Reserva encontrada!",
+                `Tu reserva para ${reserva.destino} está registrada correctamente.`
+              )
+            }
           />
         ))}
       </div>
