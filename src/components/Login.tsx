@@ -2,15 +2,20 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import CardAccion from "./CardAccion";
 
-function Login() {
+interface LoginProps {
+  mostrarMensaje: (titulo: string, mensaje: string) => void;
+}
+
+function Login({ mostrarMensaje }: LoginProps) {
   const [correo, setCorreo] = useState("");
   const [contrasena, setContrasena] = useState("");
 
   const iniciarSesion = (e: FormEvent) => {
     e.preventDefault();
 
-    alert(
-      `Inicio de sesión en MAREVA\n\nCorreo: ${correo}\nContraseña: ${contrasena}`
+    mostrarMensaje(
+      "¡Bienvenido a MAREVA!",
+      `Has iniciado sesión correctamente con el correo ${correo}. ¡Prepárate para continuar tu viaje!`
     );
 
     console.log("Acción realizada en Login");
@@ -23,8 +28,12 @@ function Login() {
       <div className="formulario-card">
         <div className="formulario-header">
           <span>MAREVA · ACCESO</span>
+
           <h1>Iniciar sesión</h1>
-          <p>Ingresa a tu cuenta para continuar tu viaje.</p>
+
+          <p>
+            Ingresa a tu cuenta para continuar tu viaje.
+          </p>
         </div>
 
         <form onSubmit={iniciarSesion}>
@@ -48,7 +57,10 @@ function Login() {
             required
           />
 
-          <button type="submit" className="formulario-boton">
+          <button
+            type="submit"
+            className="formulario-boton"
+          >
             Iniciar sesión
           </button>
         </form>
@@ -58,10 +70,12 @@ function Login() {
           texto="Regístrate en MAREVA y empieza a descubrir nuevos destinos."
           estado="NUEVO"
           boton="Crear cuenta"
-          onAccion={() => {
-            alert("Se seleccionó la opción Registro desde el módulo Login");
-            console.log("Acción realizada en Login: Registro");
-          }}
+          onAccion={() =>
+            mostrarMensaje(
+              "¡Crear cuenta!",
+              "La opción de registro fue seleccionada. ¡Crea tu cuenta y comienza a descubrir Colombia!"
+            )
+          }
         />
       </div>
     </section>
