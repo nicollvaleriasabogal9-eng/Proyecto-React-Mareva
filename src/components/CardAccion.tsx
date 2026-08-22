@@ -15,17 +15,16 @@ function CardAccion({
 }: CardAccionProps) {
   return (
     <div className="card-accion">
-      {estado && <span className="card-accion-estado">{estado}</span>}
+      <div>
+        <strong>{titulo}</strong>
+        <p>{texto}</p>
+        <small>{estado}</small>
+      </div>
 
-      {titulo && <h3>{titulo}</h3>}
-
-      {texto && <p>{texto}</p>}
-
-      <button className="card-accion-boton" onClick={onAccion}>
-        {boton}
-      </button>
+      <button onClick={onAccion}>{boton}</button>
     </div>
   );
 }
 
 export default CardAccion;
+
