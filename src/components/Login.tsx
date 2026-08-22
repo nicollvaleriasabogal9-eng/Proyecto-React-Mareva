@@ -1,17 +1,38 @@
 import { useState } from "react";
-import type { FormEvent } from "react";
+import type {
+  ChangeEvent,
+  FormEvent,
+} from "react";
 import CardAccion from "./CardAccion";
 
 interface LoginProps {
-  mostrarMensaje: (titulo: string, mensaje: string) => void;
+  mostrarMensaje: (
+    titulo: string,
+    mensaje: string
+  ) => void;
 }
 
 function Login({ mostrarMensaje }: LoginProps) {
-  const [correo, setCorreo] = useState("");
-  const [contrasena, setContrasena] = useState("");
+  const [correo, setCorreo] = useState<string>("");
+  const [contrasena, setContrasena] =
+    useState<string>("");
 
-  const iniciarSesion = (e: FormEvent) => {
-    e.preventDefault();
+  const manejarCorreo = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setCorreo(event.target.value);
+  };
+
+  const manejarContrasena = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setContrasena(event.target.value);
+  };
+
+  const iniciarSesion = (
+    event: FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
 
     mostrarMensaje(
       "¡Bienvenido a MAREVA!",
@@ -24,7 +45,10 @@ function Login({ mostrarMensaje }: LoginProps) {
   };
 
   return (
-    <section className="formulario-section" id="login">
+    <section
+      className="formulario-section"
+      id="login"
+    >
       <div className="formulario-card">
         <div className="formulario-header">
           <span>MAREVA · ACCESO</span>
@@ -37,22 +61,28 @@ function Login({ mostrarMensaje }: LoginProps) {
         </div>
 
         <form onSubmit={iniciarSesion}>
-          <label>Correo electrónico</label>
+          <label htmlFor="correo">
+            Correo electrónico
+          </label>
 
           <input
+            id="correo"
             type="email"
             value={correo}
-            onChange={(e) => setCorreo(e.target.value)}
+            onChange={manejarCorreo}
             placeholder="correo@ejemplo.com"
             required
           />
 
-          <label>Contraseña</label>
+          <label htmlFor="contrasena">
+            Contraseña
+          </label>
 
           <input
+            id="contrasena"
             type="password"
             value={contrasena}
-            onChange={(e) => setContrasena(e.target.value)}
+            onChange={manejarContrasena}
             placeholder="Ingresa tu contraseña"
             required
           />
