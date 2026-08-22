@@ -1529,3 +1529,65 @@ body {
     transform: scale(1);
   }
 }
+
+
+.reservas-filtros {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 30px auto 15px;
+}
+
+.reserva-filtro {
+  border: 1px solid #ddd3ef;
+  background: #ffffff;
+  color: #5b4b70;
+  padding: 11px 22px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.reserva-filtro:hover {
+  transform: translateY(-2px);
+  border-color: #6537c8;
+  color: #6537c8;
+  box-shadow: 0 6px 15px rgba(82, 43, 125, 0.12);
+}
+
+.reserva-filtro.activo {
+  background: linear-gradient(135deg, #42166f, #6537c8);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 7px 18px rgba(101, 55, 200, 0.25);
+}
+
+.reservas-contador {
+  text-align: center;
+  color: #6f7190;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+.sin-reservas {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.sin-reservas span {
+  font-size: 45px;
+}
+
+.sin-reservas h2 {
+  color: #42166f;
+  margin: 15px 0 8px;
+}
+
+.sin-reservas p {
+  color: #6f7190;
+}
