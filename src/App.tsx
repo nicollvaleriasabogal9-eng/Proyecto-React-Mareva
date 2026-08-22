@@ -9,10 +9,11 @@ import Registro from "./components/Registro";
 import Reservas from "./components/Reservas";
 
 function App() {
-  const [pagina, setPagina] = useState("inicio");
+  const [pagina, setPagina] = useState<string>("inicio");
 
-  const mostrarMensaje = (titulo: string, mensaje: string) => {
+  const mostrarMensaje = (titulo: string, mensaje: string): void => {
     const modal = document.createElement("div");
+
     modal.className = "modal-reserva";
 
     modal.innerHTML = `
@@ -29,11 +30,11 @@ function App() {
 
     document.body.appendChild(modal);
 
-    document
-      .getElementById("cerrarModal")
-      ?.addEventListener("click", () => {
-        modal.remove();
-      });
+    const botonCerrar = document.getElementById("cerrarModal");
+
+    botonCerrar?.addEventListener("click", () => {
+      modal.remove();
+    });
 
     console.log(`${titulo}: ${mensaje}`);
   };
@@ -75,23 +76,33 @@ function App() {
         )}
 
         {pagina === "paquetes" && (
-          <Paquetes mostrarMensaje={mostrarMensaje} />
+          <Paquetes
+            mostrarMensaje={mostrarMensaje}
+          />
         )}
 
         {pagina === "usuarios" && (
-          <Usuarios mostrarMensaje={mostrarMensaje} />
+          <Usuarios
+            mostrarMensaje={mostrarMensaje}
+          />
         )}
 
         {pagina === "reservas" && (
-          <Reservas mostrarMensaje={mostrarMensaje} />
+          <Reservas
+            mostrarMensaje={mostrarMensaje}
+          />
         )}
 
         {pagina === "login" && (
-          <Login mostrarMensaje={mostrarMensaje} />
+          <Login
+            mostrarMensaje={mostrarMensaje}
+          />
         )}
 
         {pagina === "registro" && (
-          <Registro mostrarMensaje={mostrarMensaje} />
+          <Registro
+            mostrarMensaje={mostrarMensaje}
+          />
         )}
 
       </main>
