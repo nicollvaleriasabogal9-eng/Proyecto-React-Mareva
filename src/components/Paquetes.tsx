@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from "react";
+import { useState } from "react";
 import CardAccion from "./CardAccion";
 import "./Paquetes.css";
 
@@ -282,33 +282,43 @@ const PAQUETES: Paquete[] = [
   },
 ];
 
+const CATEGORIAS = [
+  {
+    nombre: "Todas",
+    icono: "✨",
+  },
+  {
+    nombre: "Playa",
+    icono: "🏖️",
+  },
+  {
+    nombre: "Ciudad",
+    icono: "🏙️",
+  },
+  {
+    nombre: "Aventura",
+    icono: "🧗",
+  },
+  {
+    nombre: "Ecoturismo",
+    icono: "🌿",
+  },
+  {
+    nombre: "Cultural",
+    icono: "🏛️",
+  },
+];
+
 function Paquetes({ mostrarMensaje }: PaquetesProps) {
-  const [busqueda, setBusqueda] = useState<string>("");
   const [categoriaSeleccionada, setCategoriaSeleccionada] =
     useState<string>("Todas");
 
-  const categorias = [
-    "Todas",
-    ...Array.from(new Set(PAQUETES.map((paquete) => paquete.categoria))),
-  ];
-
-  const manejarBusqueda = (event: ChangeEvent<HTMLInputElement>) => {
-    setBusqueda(event.target.value);
-  };
-
   const paquetesFiltrados = PAQUETES.filter((paquete) => {
-    const textoBusqueda = busqueda.toLowerCase();
+    if (categoriaSeleccionada === "Todas") {
+      return true;
+    }
 
-    const coincideBusqueda =
-      paquete.nombre.toLowerCase().includes(textoBusqueda) ||
-      paquete.destino.toLowerCase().includes(textoBusqueda) ||
-      paquete.departamento.toLowerCase().includes(textoBusqueda);
-
-    const coincideCategoria =
-      categoriaSeleccionada === "Todas" ||
-      paquete.categoria === categoriaSeleccionada;
-
-    return coincideBusqueda && coincideCategoria;
+    return paquete.categoria === categoriaSeleccionada;
   });
 
   return (
@@ -323,36 +333,49 @@ function Paquetes({ mostrarMensaje }: PaquetesProps) {
         </h1>
 
         <p>
-          Explora nuestros paquetes turísticos y vive experiencias
-          inolvidables por Colombia.
+          Explora nuestros paquetes turísticos y vive
+          experiencias inolvidables por Colombia.
         </p>
       </div>
 
-      <div className="paquetes-filtros">
-        <input
-          type="text"
-          placeholder="Buscar destino o paquete..."
-          value={busqueda}
-          onChange={manejarBusqueda}
-        />
+      <div className="filtros-categorias">
+        {CATEGORIAS.map((categoria) => (
+          <button
+            key={categoria.nombre}
+            type="button"
+            className={
+              categoriaSeleccionada === categoria.nombre
+                ? "categoria-btn categoria-activa"
+                : "categoria-btn"
+            }
+            onClick={() =>
+              setCategoriaSeleccionada(categoria.nombre)
+            }
+          >
+            <span className="categoria-icono">
+              {categoria.icono}
+            </span>
 
-        <select
-          value={categoriaSeleccionada}
-          onChange={(event) =>
-            setCategoriaSeleccionada(event.target.value)
-          }
-        >
-          {categorias.map((categoria) => (
-            <option key={categoria} value={categoria}>
-              {categoria}
-            </option>
-          ))}
-        </select>
+            {categoria.nombre}
+          </button>
+        ))}
+      </div>
+
+      <div className="paquetes-resultados">
+        <span>
+          {paquetesFiltrados.length}{" "}
+          {paquetesFiltrados.length === 1
+            ? "paquete disponible"
+            : "paquetes disponibles"}
+        </span>
       </div>
 
       <div className="paquetes-grid">
         {paquetesFiltrados.map((paquete) => (
-          <article className="paquete-card" key={paquete.slug}>
+          <article
+            className="paquete-card"
+            key={paquete.slug}
+          >
             <div className="paquete-imagen-container">
               <img
                 src={paquete.imagen}
@@ -396,9 +419,9 @@ function Paquetes({ mostrarMensaje }: PaquetesProps) {
                 </div>
 
                 <CardAccion
-                  titulo={paquete.nombre}
-                  texto={paquete.destino}
-                  estado="Disponible"
+                  titulo=""
+                  texto=""
+                  estado=""
                   boton="Reservar"
                   onAccion={() =>
                     mostrarMensaje(
@@ -414,9 +437,13 @@ function Paquetes({ mostrarMensaje }: PaquetesProps) {
       </div>
 
       {paquetesFiltrados.length === 0 && (
-        <p className="paquetes-sin-resultados">
-          No encontramos paquetes que coincidan con tu búsqueda.
-        </p>
+        <div className="sin-paquetes">
+          <span>🌎</span>
+          <h2>No encontramos paquetes</h2>
+          <p>
+            Intenta seleccionar otra categoría.
+          </p>
+        </div>
       )}
     </section>
   );
