@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import CardAccion from "./CardAccion";
 
 interface RegistroProps {
@@ -6,19 +7,22 @@ interface RegistroProps {
 }
 
 function Registro({ mostrarMensaje }: RegistroProps) {
-  const [nombre, setNombre] = useState("");
-  const [correo, setCorreo] = useState("");
-  const [telefono, setTelefono] = useState("");
-  const [contrasena, setContrasena] = useState("");
+  const [nombre, setNombre] = useState<string>("");
+  const [correo, setCorreo] = useState<string>("");
+  const [telefono, setTelefono] = useState<string>("");
+  const [contrasena, setContrasena] = useState<string>("");
 
-  const registrarUsuario = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const registrarUsuario = (
+    event: FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
 
     if (!correo.includes("@")) {
       mostrarMensaje(
         "Correo no válido",
         "El correo electrónico debe contener al menos un @. Verifica tus datos e inténtalo nuevamente."
       );
+
       return;
     }
 
@@ -31,6 +35,30 @@ function Registro({ mostrarMensaje }: RegistroProps) {
     console.log("Nombre:", nombre);
     console.log("Correo:", correo);
     console.log("Teléfono:", telefono);
+  };
+
+  const manejarNombre = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setNombre(event.target.value);
+  };
+
+  const manejarCorreo = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setCorreo(event.target.value);
+  };
+
+  const manejarTelefono = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setTelefono(event.target.value);
+  };
+
+  const manejarContrasena = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setContrasena(event.target.value);
   };
 
   return (
@@ -67,70 +95,86 @@ function Registro({ mostrarMensaje }: RegistroProps) {
           >
 
             <div className="campo-registro">
-              <label>Nombre completo</label>
+              <label htmlFor="nombre">
+                Nombre completo
+              </label>
 
               <input
+                id="nombre"
                 type="text"
                 value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
+                onChange={manejarNombre}
                 placeholder="Ingresa tu nombre"
                 required
               />
             </div>
 
             <div className="campo-registro">
-              <label>Correo electrónico</label>
+              <label htmlFor="correo">
+                Correo electrónico
+              </label>
 
               <input
+                id="correo"
                 type="email"
                 value={correo}
-                onChange={(e) => setCorreo(e.target.value)}
+                onChange={manejarCorreo}
                 placeholder="correo@ejemplo.com"
                 required
               />
             </div>
 
             <div className="campo-registro">
-              <label>Teléfono</label>
+              <label htmlFor="telefono">
+                Teléfono
+              </label>
 
               <input
+                id="telefono"
                 type="tel"
                 value={telefono}
-                onChange={(e) => setTelefono(e.target.value)}
+                onChange={manejarTelefono}
                 placeholder="300 123 4567"
                 required
               />
             </div>
 
             <div className="campo-registro">
-              <label>Contraseña</label>
+              <label htmlFor="contrasena">
+                Contraseña
+              </label>
 
               <input
+                id="contrasena"
                 type="password"
                 value={contrasena}
-                onChange={(e) => setContrasena(e.target.value)}
+                onChange={manejarContrasena}
                 placeholder="Crea una contraseña"
                 required
               />
             </div>
 
-            <CardAccion
-              titulo="Crear cuenta"
-              texto="Registrar nuevo usuario"
-              estado="Disponible"
-              boton="Registrarme"
-              onAccion={() => {
-                const formulario = document.querySelector(
-                  ".registro-form"
-                ) as HTMLFormElement;
-
-                if (formulario) {
-                  formulario.requestSubmit();
-                }
-              }}
-            />
+            <button
+              type="submit"
+              className="formulario-boton"
+            >
+              Registrarme
+            </button>
 
           </form>
+
+          <CardAccion
+            titulo="¿Ya tienes una cuenta?"
+            texto="Ingresa a MAREVA para continuar tu viaje."
+            estado="ACCESO"
+            boton="Iniciar sesión"
+            onAccion={() =>
+              mostrarMensaje(
+                "¡Iniciar sesión!",
+                "La opción para iniciar sesión fue seleccionada correctamente."
+              )
+            }
+          />
 
         </div>
 
