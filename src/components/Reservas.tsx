@@ -1,11 +1,21 @@
+import { useState } from "react";
 import CardAccion from "./CardAccion";
+
+interface Reserva {
+  destino: string;
+  cliente: string;
+  fecha: string;
+  estado: "Confirmada" | "Pendiente";
+}
 
 interface ReservasProps {
   mostrarMensaje: (titulo: string, mensaje: string) => void;
 }
 
 function Reservas({ mostrarMensaje }: ReservasProps) {
-  const reservas = [
+  const [filtro, setFiltro] = useState<string>("Todas");
+
+  const reservas: Reserva[] = [
     {
       destino: "Cartagena Mágica",
       cliente: "Laura Rubiano",
@@ -26,6 +36,14 @@ function Reservas({ mostrarMensaje }: ReservasProps) {
     },
   ];
 
+  const reservasFiltradas = reservas.filter((reserva) => {
+    if (filtro === "Todas") {
+      return true;
+    }
+
+    return reserva.estado === filtro;
+  });
+
   return (
     <section className="modulo-section" id="reservas">
       <div className="modulo-header">
@@ -38,8 +56,24 @@ function Reservas({ mostrarMensaje }: ReservasProps) {
         </p>
       </div>
 
+      <div className="reservas-filtro">
+        <label htmlFor="filtro-reserva">
+          Filtrar reservas:
+        </label>
+
+        <select
+          id="filtro-reserva"
+          value={filtro}
+          onChange={(event) => setFiltro(event.target.value)}
+        >
+          <option value="Todas">Todas</option>
+          <option value="Confirmada">Confirmadas</option>
+          <option value="Pendiente">Pendientes</option>
+        </select>
+      </div>
+
       <div className="modulo-grid">
-        {reservas.map((reserva, index) => (
+        {reservasFiltradas.map((reserva, index) => (
           <CardAccion
             key={index}
             titulo={reserva.destino}
@@ -55,6 +89,10 @@ function Reservas({ mostrarMensaje }: ReservasProps) {
           />
         ))}
       </div>
+
+      {reservasFiltradas.length === 0 && (
+        <p>No hay reservas con este estado.</p>
+      )}
     </section>
   );
 }
