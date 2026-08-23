@@ -30,6 +30,7 @@ const opcionesMenu: OpcionMenu[] = [
     nombre: "Reservas",
     icono: "📋",
   },
+
   {
     id: "login",
     nombre: "Iniciar sesión",
