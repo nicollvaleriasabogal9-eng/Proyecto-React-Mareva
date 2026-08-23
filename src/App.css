@@ -1591,3 +1591,308 @@ body {
 .sin-reservas p {
   color: #6f7190;
 }
+
+.notificaciones-section {
+  padding: 50px;
+}
+
+.notificaciones-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.notificaciones-header span {
+  color: #6537c8;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.notificaciones-header h1 {
+  color: #42166f;
+  font-size: 38px;
+  margin: 12px 0;
+}
+
+.notificaciones-header h1 span {
+  color: #6537c8;
+  font-size: inherit;
+  letter-spacing: normal;
+}
+
+.notificaciones-header p {
+  color: #6f7190;
+}
+
+.notificaciones-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  );
+  gap: 20px;
+}
+
+.notificacion-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  background: #ffffff;
+  border: 1px solid #eee7f7;
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: 0 8px 25px rgba(65, 22, 111, 0.08);
+  transition: transform 0.25s ease;
+}
+
+.notificacion-card:hover {
+  transform: translateY(-4px);
+}
+
+.notificacion-icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 48px;
+  background: #f0e9ff;
+  border-radius: 14px;
+  font-size: 22px;
+}
+
+.notificacion-info span {
+  color: #6537c8;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.notificacion-info h2 {
+  color: #42166f;
+  font-size: 18px;
+  margin: 8px 0;
+}
+
+.notificacion-info p {
+  color: #6f7190;
+  margin: 0 0 10px;
+}
+
+.notificacion-info strong {
+  color: #6537c8;
+}
+
+.notificaciones-card {
+  max-width: 500px;
+  margin: 80px auto;
+  padding: 40px;
+  text-align: center;
+  background: #ffffff;
+  border-radius: 22px;
+  box-shadow: 0 8px 25px rgba(65, 22, 111, 0.08);
+}
+
+.notificaciones-icono {
+  font-size: 45px;
+}
+
+.notificaciones-card h2 {
+  color: #42166f;
+}
+
+.notificaciones-card p {
+  color: #6f7190;
+}
+
+.notificaciones-flotantes {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  z-index: 9999;
+}
+
+.campana-notificaciones {
+  width: 58px;
+  height: 58px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    #42166f,
+    #6537c8
+  );
+  color: white;
+  font-size: 25px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(66, 22, 111, 0.35);
+  transition: 0.3s ease;
+}
+
+.campana-notificaciones:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 12px 30px rgba(66, 22, 111, 0.45);
+}
+
+.panel-clima {
+  width: 330px;
+  overflow: hidden;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 15px 45px rgba(35, 20, 70, 0.25);
+  border: 1px solid rgba(101, 55, 200, 0.15);
+  animation: aparecerClima 0.3s ease;
+}
+
+@keyframes aparecerClima {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.panel-clima-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  background: linear-gradient(
+    135deg,
+    #42166f,
+    #6537c8
+  );
+  color: white;
+}
+
+.panel-clima-header > div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.panel-clima-icono {
+  font-size: 30px;
+}
+
+.panel-clima-header strong {
+  display: block;
+  font-size: 16px;
+}
+
+.panel-clima-header small {
+  display: block;
+  margin-top: 3px;
+  opacity: 0.8;
+  font-size: 11px;
+}
+
+.cerrar-clima {
+  border: none;
+  background: transparent;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.clima-contenido {
+  padding: 22px;
+  text-align: center;
+}
+
+.clima-ciudad {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.clima-ciudad span {
+  font-size: 22px;
+}
+
+.clima-ciudad strong {
+  display: block;
+  color: #42166f;
+  font-size: 15px;
+}
+
+.clima-ciudad small {
+  display: block;
+  color: #777;
+  margin-top: 3px;
+}
+
+.clima-temperatura {
+  color: #42166f;
+  font-size: 55px;
+  font-weight: 700;
+  line-height: 1;
+  margin: 15px 0 8px;
+}
+
+.clima-temperatura span {
+  font-size: 25px;
+  vertical-align: top;
+}
+
+.clima-descripcion {
+  margin: 0 0 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.clima-datos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.clima-datos > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  border-radius: 14px;
+  background: #f6f3fb;
+  text-align: left;
+}
+
+.clima-datos span {
+  font-size: 20px;
+}
+
+.clima-datos small {
+  display: block;
+  color: #888;
+  font-size: 10px;
+}
+
+.clima-datos strong {
+  display: block;
+  margin-top: 2px;
+  color: #42166f;
+  font-size: 13px;
+}
+
+.clima-actualizado {
+  display: block;
+  margin-top: 18px;
+  color: #999;
+  font-size: 10px;
+}
+
+.clima-mensaje {
+  padding: 25px;
+  text-align: center;
+  color: #555;
+}
+
+.clima-error {
+  color: #b42318;
+}
