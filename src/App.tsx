@@ -7,6 +7,7 @@ import Usuarios from "./components/Usuarios";
 import Login from "./components/Login";
 import Registro from "./components/Registro";
 import Reservas from "./components/Reservas";
+import Notificaciones from "./components/Notificaciones";
 
 function App() {
   const [pagina, setPagina] = useState<string>("inicio");
@@ -93,6 +94,7 @@ function App() {
           />
         )}
 
+      
         {pagina === "login" && (
           <Login
             mostrarMensaje={mostrarMensaje}
@@ -106,6 +108,7 @@ function App() {
         )}
 
       </main>
+      <Notificaciones />
     </div>
   );
 }
