@@ -18,7 +18,7 @@ function Footer() {
       </div>
 
       <div className="footer-bottom">
-        © 2026 MAREVA · Viajes por Colombia Y todo el Mundo
+        © 2026 MAREVA · Viajes por Colombia 
       </div>
     </footer>
   );
