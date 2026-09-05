@@ -141,3 +141,52 @@
     flex-direction: column;
   }
 }
+
+/* Iconos de navegación del panel administrativo */
+.admin-sidebar nav button {
+  align-items: center;
+  display: flex;
+  gap: 9px;
+  padding: 7px 9px;
+}
+
+.admin-sidebar nav button .admin-nav-icon {
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9px;
+  color: #75a8bd;
+  display: inline-flex;
+  flex: 0 0 29px;
+  height: 29px;
+  justify-content: center;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  width: 29px;
+}
+
+.admin-nav-icon svg {
+  height: 15px;
+  width: 15px;
+}
+
+.admin-sidebar nav button:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+}
+
+.admin-sidebar nav button:hover .admin-nav-icon {
+  border-color: rgba(85, 207, 198, 0.3);
+  color: #7ee4df;
+}
+
+.admin-sidebar nav button.active .admin-nav-icon {
+  background: var(--aqua);
+  border-color: var(--aqua);
+  box-shadow: 0 5px 14px rgba(3, 29, 43, 0.24);
+  color: #083852;
+}
+
+@media (max-width: 760px) {
+  .admin-sidebar nav button .admin-nav-icon {
+    display: inline-flex;
+  }
+}
