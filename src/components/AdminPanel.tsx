@@ -54,8 +54,8 @@ export default function AdminPanel({ packages, reservations, notify, onExit }: A
       <aside className="admin-sidebar">
         <button className="admin-brand" onClick={() => setSection("dashboard")}><span>M</span><div><strong>MAREVA</strong><small>Panel administrativo</small></div></button>
         <nav aria-label="Módulos administrativos">
-          {ADMIN_SECTIONS.map(([id, label], index) => (
-            <button key={id} className={section === id ? "active" : ""} onClick={() => setSection(id)}><span>{String(index + 1).padStart(2, "0")}</span>{label}</button>
+          {ADMIN_SECTIONS.map(([id, label]) => (
+            <button key={id} className={section === id ? "active" : ""} onClick={() => setSection(id)}><AdminNavIcon name={id}/>{label}</button>
           ))}
         </nav>
         <button className="admin-exit" onClick={onExit}>← Volver al sitio</button>
@@ -129,6 +129,35 @@ export default function AdminPanel({ packages, reservations, notify, onExit }: A
       </main>
     </div>
   );
+}
+
+function AdminNavIcon({ name }: { name: string }) {
+  const icon = (() => {
+    switch (name) {
+      case "dashboard":
+        return <><rect x="3" y="11" width="3" height="7" rx="1"/><rect x="9" y="6" width="3" height="12" rx="1"/><rect x="15" y="3" width="3" height="15" rx="1"/></>;
+      case "packages":
+        return <><path d="M5 7h14v10.5A1.5 1.5 0 0 1 17.5 19h-11A1.5 1.5 0 0 1 5 17.5V7Z"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7M8 11v4M16 11v4"/></>;
+      case "hotels":
+        return <><path d="M5 19V5.5A1.5 1.5 0 0 1 6.5 4h8A1.5 1.5 0 0 1 16 5.5V19M3 19h16M9 19v-4h3v4"/><path d="M8 8h1M12 8h1M8 11h1M12 11h1"/></>;
+      case "tolls":
+        return <><path d="M4 19 8 5h8l4 14M7 9h10M5.5 14h13M12 5v14"/></>;
+      case "reservations":
+        return <><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 9h16M8 13h3M8 16h6"/></>;
+      case "transport":
+        return <><path d="M5 17V7.5A2.5 2.5 0 0 1 7.5 5h9A2.5 2.5 0 0 1 19 7.5V17H5Z"/><path d="M7 9h10M8 13h.01M16 13h.01M7 17v2M17 17v2"/></>;
+      case "users":
+        return <><circle cx="9" cy="8" r="3"/><circle cx="16.5" cy="9" r="2.5"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0M14 15a4.5 4.5 0 0 1 6.5 4"/></>;
+      case "coupons":
+        return <><path d="M4 8.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2.5a2.5 2.5 0 0 0 0 5V16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2.5a2.5 2.5 0 0 0 0-5Z"/><path d="M12 7v2M12 12v2M12 17v1"/></>;
+      case "notifications":
+        return <><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 8h18c0-1-3-1-3-8Z"/><path d="M10 20h4"/></>;
+      default:
+        return <circle cx="12" cy="12" r="7"/>;
+    }
+  })();
+
+  return <span className="admin-nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">{icon}</svg></span>;
 }
 
 function ModuleHeader({ eyebrow, title, description, action, onAction }: { eyebrow: string; title: string; description: string; action?: string; onAction?: () => void }) {
