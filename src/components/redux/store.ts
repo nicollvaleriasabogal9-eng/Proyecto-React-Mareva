@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import paquetesReducer from "./paquetesSlice";
 import weatherReducer from "./weatherSlice";
+import reservasReducer from "./reservasSlice";
 
 export const store = configureStore({
   reducer: {
     paquetes: paquetesReducer,
     weather: weatherReducer,
+    reservas: reservasReducer,
   },
 });
 

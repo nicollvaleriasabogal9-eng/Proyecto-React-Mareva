@@ -1,10 +1,14 @@
 import { useEffect, useMemo, useState, type Dispatch, type FormEvent, type SetStateAction } from "react";
+import { useDispatch } from "react-redux";
 import "./App.css";
 import "./polish.css";
 import { api } from "./api";
 import { INITIAL_NOTIFICATIONS, PACKAGES, ROUTES } from "./data";
 import type { Filters, Page, Reservation, SearchState, TravelMode, TravelNotification, TravelPackage } from "./models";
 import AdminPanel from "./components/AdminPanel";
+import RegistrosPanel from "./components/RegistrosPanel";
+import { agregarReserva } from "./components/redux/reservasSlice";
+import type { AppDispatch } from "./components/redux/store";
 
 const currency = (value: number) => new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(value);
 const modeName = (mode: TravelMode) => mode === "car" ? "Carro propio" : mode === "plane" ? "Avión" : "Bus Mareva";
@@ -20,6 +24,7 @@ const initialReservation: Reservation = {
 };
 
 export default function App() {
+  const dispatch = useDispatch<AppDispatch>();
   const [page, setPage] = useState<Page>("home");
   const [search, setSearch] = useState<SearchState>(initialSearch);
   const [filters, setFilters] = useState<Filters>({ maxPrice: 3500000, stars: 0, breakfast: false, freeCancellation: false, petFriendly: false });
@@ -71,12 +76,18 @@ export default function App() {
 
   const createReservation = (reservation: Reservation) => {
     setReservations((current) => [reservation, ...current]);
+    dispatch(agregarReserva(reservation)); // refleja el nuevo registro en el estado global al instante
     api.createReservation(reservation).catch(() => undefined);
     notify("Pago aprobado", `Tu reserva ${reservation.id} está confirmada. El voucher ya está disponible.`, "payment");
     navigate("profile");
   };
 
-  if (page === "admin") return <AdminPanel packages={packages} reservations={reservations} notify={notify} onExit={() => navigate("home")} />;
+  if (page === "admin") return (
+    <>
+      <AdminPanel packages={packages} reservations={reservations} notify={notify} onExit={() => navigate("home")} />
+      <RegistrosPanel />
+    </>
+  );
 
   const favoritePackages = packages.filter((item) => favorites.includes(item.id));
 
@@ -105,6 +116,7 @@ export default function App() {
       {favoriteDrawer && <FavoritesDrawer packages={favoritePackages} onClose={() => setFavoriteDrawer(false)} onView={viewPackage} onAll={() => navigate("favorites")} />}
       {notificationDrawer && <NotificationDrawer notifications={notifications} onClose={() => setNotificationDrawer(false)} />}
       {toast && <div className={`travel-toast ${toast.kind}`}><span>✦</span><div><strong>{toast.title}</strong><p>{toast.message}</p></div><button onClick={() => setToast(null)}>×</button></div>}
+      <RegistrosPanel />
     </div>
   );
 }

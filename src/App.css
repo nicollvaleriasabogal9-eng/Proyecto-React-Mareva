@@ -25,3 +25,76 @@ button{transition:.2s ease}button:focus-visible,input:focus-visible,select:focus
 @media(max-width:1020px){.nav-links{display:none}.search-grid.wide{grid-template-columns:1fr 1fr 1fr}.travel-row{flex-wrap:wrap}.pet-summary{margin-left:0}.package-grid{grid-template-columns:1fr 1fr}.results-layout{grid-template-columns:220px 1fr}.detail-layout,.booking-layout{grid-template-columns:1fr}.booking-summary,.checkout-summary{position:static}.benefit-grid{grid-template-columns:1fr 1fr}.admin-kpis{grid-template-columns:1fr 1fr}.admin-dashboard-grid{grid-template-columns:1fr}.admin-shell{grid-template-columns:200px 1fr}.notification-admin{grid-template-columns:1fr}.ticket-preview{max-width:430px}.site-footer{grid-template-columns:2fr 1fr 1fr}.api-status{grid-column:1/-1}}
 @media(max-width:760px){.content-section{width:min(100% - 28px,1180px)}.topbar{height:68px;padding:0 14px}.brand small,.login-button{display:none}.header-icon{min-width:34px}.hero{padding:45px 15px 40px;min-height:730px}.hero-copy{margin-bottom:25px}.search-card.floating{margin-bottom:-145px}.search-grid.wide{grid-template-columns:1fr 1fr}.people-popover{right:10px;left:10px;width:auto;top:230px}.travel-row>span{width:100%}.travel-options{width:100%;display:grid;grid-template-columns:repeat(3,1fr)}.pet-summary{display:none}.search-button{width:100%}.home-intro{padding-top:180px}.section-heading{align-items:flex-start}.section-heading .text-button{display:none}.package-grid{grid-template-columns:1fr}.promise-band{grid-template-columns:1fr;gap:20px}.results-search h1{font-size:34px}.results-layout{grid-template-columns:1fr}.filters-panel{position:static}.package-card.horizontal{grid-template-columns:1fr}.package-card.horizontal .card-image{min-height:210px}.detail-title{align-items:flex-start;gap:14px}.gallery{grid-template-rows:240px 110px;grid-template-columns:1fr 1fr}.gallery-main{grid-column:1/3;grid-row:1}.included-grid,.policies,.route-cards{grid-template-columns:1fr}.room-row{grid-template-columns:1fr}.room-row.header{display:none}.form-grid,.payment-options{grid-template-columns:1fr 1fr}.auth-page{grid-template-columns:1fr}.auth-photo{min-height:340px;padding:30px}.auth-panel{padding:38px 24px}.auth-brand{margin-bottom:35px}.profile-layout{grid-template-columns:1fr}.profile-menu{display:flex;overflow:auto}.profile-menu button{white-space:nowrap}.ticket-data{grid-template-columns:1fr}.reservation-ticket{grid-template-columns:1fr}.ticket-side{display:grid;grid-template-columns:1fr auto auto;align-items:center}.mini-favorites{grid-template-columns:1fr}.site-footer{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}.admin-shell{display:block}.admin-sidebar{height:auto;position:static;padding:12px}.admin-brand{padding-bottom:10px}.admin-sidebar nav{flex-direction:row;overflow:auto;margin-top:10px}.admin-sidebar nav button{white-space:nowrap}.admin-sidebar nav button span{display:none}.admin-exit{margin-top:10px}.admin-main{padding:0 14px 40px}.admin-kpis,.hotel-admin-grid,.coupon-grid,.transport-layout{grid-template-columns:1fr}.admin-header{height:80px}.admin-user{display:none}.module-heading{align-items:flex-start;gap:12px}.route-admin-note{flex-direction:column;gap:4px}.notification-admin{grid-template-columns:1fr}}
 @media(max-width:480px){.brand-mark{width:36px;height:36px}.brand strong{font-size:15px}.hero h1{font-size:39px}.search-grid.wide{grid-template-columns:1fr}.people-popover{top:370px}.home-intro{padding-top:190px}.detail-page{padding-top:18px}.detail-title{display:block}.favorite-large{margin-top:13px}.gallery{grid-template-rows:210px 90px}.benefit-grid{grid-template-columns:1fr 1fr}.form-grid,.payment-options{grid-template-columns:1fr}.traveler-line{grid-template-columns:1fr}.steps{width:280px}.profile-cover>.content-section>span{width:58px;height:58px}.profile-cover h1{font-size:30px}.ticket-actions{flex-direction:column}.travel-toast{left:12px;right:12px;bottom:12px}.site-footer{grid-template-columns:1fr}.site-footer>div{grid-column:auto}.admin-kpis{grid-template-columns:1fr}.module-heading{display:block}.module-heading .primary-button{margin-top:12px}.admin-card{padding:14px}.seat-grid{grid-template-columns:repeat(4,30px)}}
+
+/* ===== Panel de Registros (Redux, tiempo real) ===== */
+.registros-panel {
+  position: fixed;
+  bottom: 1.25rem;
+  right: 1.25rem;
+  z-index: 999;
+  background: #0f172aee;
+  color: #f1f5f9;
+  border: 1px solid #38bdf8;
+  border-radius: 14px;
+  padding: 0.9rem 1.1rem;
+  min-width: 190px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  font-family: inherit;
+}
+
+.registros-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.registros-panel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.25);
+}
+
+.registros-panel-total {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #38bdf8;
+  line-height: 1;
+}
+
+.registros-panel-detalle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin-top: 0.5rem;
+  font-size: 0.78rem;
+  color: #cbd5e1;
+}
+
+.registros-panel-msg {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  margin: 0;
+}
+
+.registros-panel-error {
+  color: #f87171;
+}
+
+.registros-panel-hora {
+  margin: 0.5rem 0 0;
+  font-size: 0.68rem;
+  color: #64748b;
+}
+
+@media (max-width: 640px) {
+  .registros-panel {
+    bottom: 0.75rem;
+    right: 0.75rem;
+    left: 0.75rem;
+    min-width: unset;
+  }
+}
