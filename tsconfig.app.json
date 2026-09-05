@@ -22,5 +22,12 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": [
+    "src/main.tsx",
+    "src/App.tsx",
+    "src/api.ts",
+    "src/data.ts",
+    "src/models.ts",
+    "src/components/AdminPanel.tsx"
+  ]
 }
