@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import type { PaqueteAPI } from "../types/paquete";
+import type { PaqueteAPI } from "../../../types/paquete";
 
 interface PaquetesState {
   paquetes: PaqueteAPI[];
