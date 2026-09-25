@@ -1,0 +1,730 @@
+/* =========================================================
+   MAREVA · REGISTRO
+   Diseño moderno y responsive
+   ========================================================= */
+
+.registro-section {
+  min-height: calc(100vh - 80px);
+  width: 100%;
+
+  padding: 65px 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+
+  position: relative;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 10% 15%,
+      rgba(112, 38, 168, 0.14),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 90% 85%,
+      rgba(36, 86, 216, 0.13),
+      transparent 32%
+    ),
+    linear-gradient(
+      135deg,
+      #faf9ff 0%,
+      #f5effb 50%,
+      #eef4ff 100%
+    );
+}
+
+/* =========================================================
+   DECORACIONES DE FONDO
+   ========================================================= */
+
+.registro-section::before {
+  content: "";
+
+  position: absolute;
+
+  width: 360px;
+  height: 360px;
+
+  top: -180px;
+  left: -150px;
+
+  border-radius: 50%;
+
+  background: rgba(112, 38, 168, 0.08);
+
+  pointer-events: none;
+}
+
+.registro-section::after {
+  content: "";
+
+  position: absolute;
+
+  width: 420px;
+  height: 420px;
+
+  right: -210px;
+  bottom: -220px;
+
+  border-radius: 50%;
+
+  background: rgba(36, 86, 216, 0.08);
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   TARJETA PRINCIPAL
+   ========================================================= */
+
+.registro-card {
+  width: 100%;
+  max-width: 500px;
+
+  padding: 42px;
+
+  box-sizing: border-box;
+
+  position: relative;
+  z-index: 2;
+
+  background: rgba(255, 255, 255, 0.97);
+
+  border: 1px solid rgba(112, 38, 168, 0.09);
+
+  border-radius: 28px;
+
+  box-shadow:
+    0 30px 80px rgba(49, 31, 83, 0.14),
+    0 10px 30px rgba(36, 86, 216, 0.06);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  animation: registroEntrada 0.55s ease;
+}
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.registro-header {
+  text-align: center;
+
+  margin-bottom: 28px;
+}
+
+.registro-icono {
+  width: 72px;
+  height: 72px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #7026a8 0%,
+      #5b2bb5 45%,
+      #2456d8 100%
+    );
+
+  color: #ffffff;
+
+  font-size: 31px;
+
+  box-shadow:
+    0 14px 32px rgba(112, 38, 168, 0.25);
+
+  position: relative;
+}
+
+.registro-icono::after {
+  content: "";
+
+  position: absolute;
+
+  inset: -5px;
+
+  border-radius: 26px;
+
+  border: 1px solid rgba(112, 38, 168, 0.12);
+}
+
+/* =========================================================
+   TÍTULO
+   ========================================================= */
+
+.registro-header h1 {
+  margin: 0 0 10px;
+
+  color: #292542;
+
+  font-size: 29px;
+
+  line-height: 1.2;
+
+  font-weight: 800;
+
+  letter-spacing: -0.6px;
+}
+
+/* =========================================================
+   DESCRIPCIÓN
+   ========================================================= */
+
+.registro-header p {
+  margin: 0;
+
+  color: #656173;
+
+  font-size: 15px;
+
+  line-height: 1.6;
+}
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.registro-form {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+/* =========================================================
+   CAMPOS
+   ========================================================= */
+
+.registro-campo {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.registro-campo label {
+  color: #292542;
+
+  font-size: 14px;
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   CONTENEDOR DE INPUT
+   ========================================================= */
+
+.registro-input-contenedor {
+  width: 100%;
+  height: 54px;
+
+  position: relative;
+
+  display: flex;
+  align-items: center;
+}
+
+/* =========================================================
+   ICONOS DE INPUT
+   ========================================================= */
+
+.registro-input-contenedor > span:first-child {
+  position: absolute;
+
+  left: 16px;
+
+  width: 22px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 17px;
+
+  z-index: 2;
+
+  pointer-events: none;
+}
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.registro-input-contenedor input {
+  width: 100%;
+  height: 54px;
+
+  box-sizing: border-box;
+
+  padding: 0 48px;
+
+  border: 1.5px solid #ded8e8;
+
+  border-radius: 14px;
+
+  outline: none;
+
+  background: #fbfaff;
+
+  color: #292542;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.registro-input-contenedor input::placeholder {
+  color: #918c9f;
+}
+
+.registro-input-contenedor input:hover {
+  border-color: #c8bfd5;
+}
+
+.registro-input-contenedor input:focus {
+  background: #ffffff;
+
+  border-color: #7026a8;
+
+  box-shadow:
+    0 0 0 4px rgba(112, 38, 168, 0.09);
+}
+
+.registro-input-contenedor input:disabled {
+  opacity: 0.65;
+
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   BOTÓN MOSTRAR CONTRASEÑA
+   ========================================================= */
+
+.registro-mostrar-password {
+  position: absolute;
+
+  right: 13px;
+
+  width: 34px;
+  height: 34px;
+
+  border: none;
+
+  border-radius: 9px;
+
+  background: transparent;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  font-size: 16px;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.registro-mostrar-password:hover {
+  background: #f0eaf7;
+
+  transform: scale(1.05);
+}
+
+.registro-mostrar-password:disabled {
+  cursor: not-allowed;
+
+  opacity: 0.5;
+}
+
+/* =========================================================
+   REQUISITOS DE CONTRASEÑA
+   ========================================================= */
+
+.registro-requisitos {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 8px 14px;
+
+  margin-top: 4px;
+
+  padding: 14px 16px;
+
+  border-radius: 13px;
+
+  background: #f3f0f7;
+
+  border: 1px solid #ddd6e7;
+
+  box-shadow:
+    inset 0 1px 2px rgba(50, 30, 80, 0.04);
+}
+
+/* =========================================================
+   TEXTO DE LOS REQUISITOS
+   ========================================================= */
+
+.registro-requisitos span {
+  color: #514d5d;
+
+  font-size: 12.5px;
+
+  font-weight: 600;
+
+  line-height: 1.5;
+
+  letter-spacing: 0.05px;
+
+  transition:
+    color 0.2s ease,
+    font-weight 0.2s ease,
+    transform 0.2s ease;
+}
+
+/* =========================================================
+   REQUISITO CUMPLIDO
+   ========================================================= */
+
+.registro-requisitos span.cumplido {
+  color: #258a5a;
+
+  font-weight: 700;
+}
+
+/* =========================================================
+   EFECTO CUANDO SE CUMPLE
+   ========================================================= */
+
+.registro-requisitos span.cumplido::first-letter {
+  color: #258a5a;
+}
+
+/* =========================================================
+   CONFIRMACIÓN DE CONTRASEÑA
+   ========================================================= */
+
+.registro-coincide,
+.registro-no-coincide {
+  display: block;
+
+  margin-top: -2px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  line-height: 1.4;
+}
+
+.registro-coincide {
+  color: #258a5a;
+}
+
+.registro-no-coincide {
+  color: #c43d55;
+}
+
+/* =========================================================
+   BOTÓN CREAR CUENTA
+   ========================================================= */
+
+.registro-boton {
+  width: 100%;
+  height: 55px;
+
+  margin-top: 5px;
+
+  border: none;
+
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #7026a8 0%,
+      #5b2bb5 45%,
+      #2456d8 100%
+    );
+
+  color: #ffffff;
+
+  font-family: inherit;
+
+  font-size: 15px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  box-shadow:
+    0 12px 28px rgba(112, 38, 168, 0.24);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    filter 0.25s ease;
+}
+
+.registro-boton:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 17px 35px rgba(112, 38, 168, 0.30);
+
+  filter: brightness(1.04);
+}
+
+.registro-boton:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.registro-boton:disabled {
+  opacity: 0.75;
+
+  cursor: not-allowed;
+
+  box-shadow:
+    0 8px 18px rgba(112, 38, 168, 0.12);
+}
+
+/* =========================================================
+   SPINNER
+   ========================================================= */
+
+.registro-spinner {
+  width: 18px;
+  height: 18px;
+
+  display: inline-block;
+
+  border: 2px solid rgba(255, 255, 255, 0.35);
+
+  border-top-color: #ffffff;
+
+  border-radius: 50%;
+
+  animation:
+    registroSpinner 0.7s linear infinite;
+}
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+.registro-login {
+  margin-top: 25px;
+
+  text-align: center;
+}
+
+.registro-login p {
+  display: inline;
+
+  margin: 0;
+
+  color: #656173;
+
+  font-size: 14px;
+}
+
+.registro-login button {
+  margin-left: 5px;
+
+  padding: 0;
+
+  border: none;
+
+  background: transparent;
+
+  color: #7026a8;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease;
+}
+
+.registro-login button:hover {
+  color: #2456d8;
+
+  text-decoration: underline;
+}
+
+.registro-login button:disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   ANIMACIÓN DE ENTRADA
+   ========================================================= */
+
+@keyframes registroEntrada {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(22px)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+/* =========================================================
+   ANIMACIÓN SPINNER
+   ========================================================= */
+
+@keyframes registroSpinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .registro-section {
+    min-height: calc(100vh - 70px);
+
+    padding: 50px 18px;
+  }
+
+  .registro-card {
+    max-width: 470px;
+
+    padding: 36px 30px;
+
+    border-radius: 25px;
+  }
+
+  .registro-header h1 {
+    font-size: 26px;
+  }
+}
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 480px) {
+  .registro-section {
+    padding: 35px 14px;
+  }
+
+  .registro-card {
+    padding: 30px 20px;
+
+    border-radius: 22px;
+  }
+
+  .registro-icono {
+    width: 64px;
+    height: 64px;
+
+    margin-bottom: 17px;
+
+    border-radius: 19px;
+
+    font-size: 27px;
+  }
+
+  .registro-icono::after {
+    border-radius: 23px;
+  }
+
+  .registro-header h1 {
+    font-size: 23px;
+  }
+
+  .registro-header p {
+    font-size: 14px;
+  }
+
+  .registro-requisitos {
+    grid-template-columns: 1fr;
+
+    gap: 6px;
+  }
+
+  .registro-requisitos span {
+    font-size: 12.5px;
+  }
+
+  .registro-input-contenedor,
+  .registro-input-contenedor input {
+    height: 51px;
+  }
+
+  .registro-boton {
+    height: 53px;
+  }
+}
+
+/* =========================================================
+   MÓVILES PEQUEÑOS
+   ========================================================= */
+
+@media (max-width: 360px) {
+  .registro-card {
+    padding: 26px 16px;
+  }
+
+  .registro-header h1 {
+    font-size: 21px;
+  }
+
+  .registro-requisitos {
+    padding: 12px 13px;
+  }
+
+  .registro-requisitos span {
+    font-size: 12px;
+  }
+}
+
