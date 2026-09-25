@@ -1,186 +1,608 @@
 import { useState } from "react";
-import type { ChangeEvent, FormEvent } from "react";
-import CardAccion from "./CardAccion";
+import type {
+  ChangeEvent,
+  FormEvent,
+} from "react";
+import axios from "axios";
+import "./Registro.css";
+
+const API = "http://127.0.0.1:5000";
 
 interface RegistroProps {
-  mostrarMensaje: (titulo: string, mensaje: string) => void;
+  mostrarMensaje: (
+    titulo: string,
+    mensaje: string
+  ) => void;
+
+  irA: (ruta: "login") => void;
 }
 
-function Registro({ mostrarMensaje }: RegistroProps) {
-  const [nombre, setNombre] = useState<string>("");
-  const [correo, setCorreo] = useState<string>("");
-  const [telefono, setTelefono] = useState<string>("");
-  const [contrasena, setContrasena] = useState<string>("");
+const Registro = ({
+  mostrarMensaje,
+  irA,
+}: RegistroProps) => {
+  const [nombre, setNombre] = useState("");
+  const [correo, setCorreo] = useState("");
+  const [contrasena, setContrasena] = useState("");
+  const [confirmarContrasena, setConfirmarContrasena] =
+    useState("");
 
-  const registrarUsuario = (
-    event: FormEvent<HTMLFormElement>
-  ) => {
-    event.preventDefault();
+  const [mostrarPassword, setMostrarPassword] =
+    useState(false);
 
-    if (!correo.includes("@")) {
-      mostrarMensaje(
-        "Correo no válido",
-        "El correo electrónico debe contener al menos un @. Verifica tus datos e inténtalo nuevamente."
-      );
+  const [mostrarConfirmacion, setMostrarConfirmacion] =
+    useState(false);
 
-      return;
-    }
+  const [cargando, setCargando] = useState(false);
 
-    mostrarMensaje(
-      "¡Registro exitoso!",
-      `Bienvenido a MAREVA, ${nombre}. Tu cuenta fue creada correctamente con el correo ${correo}.`
-    );
-
-    console.log("Acción realizada en el módulo Registro");
-    console.log("Nombre:", nombre);
-    console.log("Correo:", correo);
-    console.log("Teléfono:", telefono);
-  };
+  // =========================================================
+  // MANEJADORES
+  // =========================================================
 
   const manejarNombre = (
-    event: ChangeEvent<HTMLInputElement>
+    evento: ChangeEvent<HTMLInputElement>
   ) => {
-    setNombre(event.target.value);
+    setNombre(evento.target.value);
   };
 
   const manejarCorreo = (
-    event: ChangeEvent<HTMLInputElement>
+    evento: ChangeEvent<HTMLInputElement>
   ) => {
-    setCorreo(event.target.value);
-  };
-
-  const manejarTelefono = (
-    event: ChangeEvent<HTMLInputElement>
-  ) => {
-    setTelefono(event.target.value);
+    setCorreo(evento.target.value);
   };
 
   const manejarContrasena = (
-    event: ChangeEvent<HTMLInputElement>
+    evento: ChangeEvent<HTMLInputElement>
   ) => {
-    setContrasena(event.target.value);
+    setContrasena(evento.target.value);
   };
+
+  const manejarConfirmarContrasena = (
+    evento: ChangeEvent<HTMLInputElement>
+  ) => {
+    setConfirmarContrasena(evento.target.value);
+  };
+
+  // =========================================================
+  // VALIDAR CONTRASEÑA
+  // =========================================================
+
+  const validarContrasena = (
+    password: string
+  ): string | null => {
+    if (password.length < 8) {
+      return "La contraseña debe tener mínimo 8 caracteres.";
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      return "La contraseña debe contener al menos una mayúscula.";
+    }
+
+    if (!/[a-z]/.test(password)) {
+      return "La contraseña debe contener al menos una minúscula.";
+    }
+
+    if (!/[0-9]/.test(password)) {
+      return "La contraseña debe contener al menos un número.";
+    }
+
+    if (!/[!@#$%^&*(),.?":{}|<>_\-+=/\\[\]';`~]/.test(password)) {
+      return "La contraseña debe contener al menos un carácter especial.";
+    }
+
+    return null;
+  };
+
+  // =========================================================
+  // SUBMIT
+  // =========================================================
+
+  const manejarSubmit = async (
+    evento: FormEvent<HTMLFormElement>
+  ) => {
+    evento.preventDefault();
+
+    // =======================================================
+    // NOMBRE
+    // =======================================================
+
+    if (!nombre.trim()) {
+      mostrarMensaje(
+        "Nombre requerido",
+        "Ingresa tu nombre completo."
+      );
+      return;
+    }
+
+    if (nombre.trim().length < 3) {
+      mostrarMensaje(
+        "Nombre inválido",
+        "El nombre debe tener al menos 3 caracteres."
+      );
+      return;
+    }
+
+    // =======================================================
+    // CORREO
+    // =======================================================
+
+    if (!correo.trim()) {
+      mostrarMensaje(
+        "Correo requerido",
+        "Ingresa tu correo electrónico."
+      );
+      return;
+    }
+
+    const correoValido =
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+        correo.trim()
+      );
+
+    if (!correoValido) {
+      mostrarMensaje(
+        "Correo inválido",
+        "Ingresa un correo electrónico válido."
+      );
+      return;
+    }
+
+    // =======================================================
+    // CONTRASEÑA
+    // =======================================================
+
+    if (!contrasena) {
+      mostrarMensaje(
+        "Contraseña requerida",
+        "Ingresa una contraseña."
+      );
+      return;
+    }
+
+    const errorPassword =
+      validarContrasena(contrasena);
+
+    if (errorPassword) {
+      mostrarMensaje(
+        "Contraseña no válida",
+        errorPassword
+      );
+      return;
+    }
+
+    // =======================================================
+    // CONFIRMAR CONTRASEÑA
+    // =======================================================
+
+    if (!confirmarContrasena) {
+      mostrarMensaje(
+        "Confirma tu contraseña",
+        "Debes repetir tu contraseña."
+      );
+      return;
+    }
+
+    if (contrasena !== confirmarContrasena) {
+      mostrarMensaje(
+        "Las contraseñas no coinciden",
+        "Verifica que ambas contraseñas sean iguales."
+      );
+      return;
+    }
+
+    // =======================================================
+    // REGISTRO EN POSTGRESQL
+    // =======================================================
+
+    try {
+      setCargando(true);
+
+      const respuesta = await axios.post(
+        `${API}/registro`,
+        {
+          nombre: nombre.trim(),
+          correo: correo.trim().toLowerCase(),
+          contrasena,
+          rol: "cliente",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      console.log(
+        "Respuesta registro:",
+        respuesta.data
+      );
+
+      // =====================================================
+      // REGISTRO EXITOSO
+      // =====================================================
+
+      mostrarMensaje(
+        "Registro exitoso",
+        "Tu cuenta fue creada correctamente. Ahora puedes iniciar sesión."
+      );
+
+      // Limpiar formulario
+
+      setNombre("");
+      setCorreo("");
+      setContrasena("");
+      setConfirmarContrasena("");
+
+      setMostrarPassword(false);
+      setMostrarConfirmacion(false);
+
+      // =====================================================
+      // VOLVER AL LOGIN
+      // =====================================================
+
+      setTimeout(() => {
+        irA("login");
+      }, 1200);
+
+    } catch (error: any) {
+      console.error(
+        "Error registrando usuario:",
+        error
+      );
+
+      const mensaje =
+        error?.response?.data?.mensaje ||
+        error?.response?.data?.message ||
+        "No fue posible crear la cuenta. Inténtalo nuevamente.";
+
+      mostrarMensaje(
+        "No se pudo completar el registro",
+        mensaje
+      );
+
+    } finally {
+      setCargando(false);
+    }
+  };
+
+  // =========================================================
+  // RENDER
+  // =========================================================
 
   return (
     <section className="registro-section">
-      <div className="registro-contenedor">
+
+      <div className="registro-card">
+
+        {/* ==================================================
+            ENCABEZADO
+            ================================================== */}
 
         <div className="registro-header">
-          <span>MAREVA · CREA TU CUENTA</span>
+
+          <span className="registro-icono">
+            ✈️
+          </span>
 
           <h1>
-            Únete a <span>MAREVA</span>
+            Crea tu cuenta en MAREVA
           </h1>
 
           <p>
-            Crea tu cuenta y comienza a descubrir
-            increíbles destinos por Colombia.
+            Regístrate y comienza a descubrir
+            nuevos destinos.
           </p>
+
         </div>
 
-        <div className="registro-card">
+        {/* ==================================================
+            FORMULARIO
+            ================================================== */}
 
-          <div className="registro-card-header">
-            <h2>Crear una cuenta</h2>
+        <form
+          className="registro-form"
+          onSubmit={manejarSubmit}
+        >
 
-            <p>
-              Completa tus datos para registrarte
-              en nuestra plataforma.
-            </p>
-          </div>
+          {/* =================================================
+              NOMBRE
+              ================================================= */}
 
-          <form
-            className="registro-form"
-            onSubmit={registrarUsuario}
-          >
+          <div className="registro-campo">
 
-            <div className="campo-registro">
-              <label htmlFor="nombre">
-                Nombre completo
-              </label>
+            <label htmlFor="registro-nombre">
+              Nombre completo
+            </label>
+
+            <div className="registro-input-contenedor">
+
+              <span>
+                👤
+              </span>
 
               <input
-                id="nombre"
+                id="registro-nombre"
                 type="text"
+                placeholder="Ej. Sofía Rubiano"
                 value={nombre}
                 onChange={manejarNombre}
-                placeholder="Ingresa tu nombre"
-                required
+                autoComplete="name"
+                disabled={cargando}
               />
+
             </div>
 
-            <div className="campo-registro">
-              <label htmlFor="correo">
-                Correo electrónico
-              </label>
+          </div>
+
+          {/* =================================================
+              CORREO
+              ================================================= */}
+
+          <div className="registro-campo">
+
+            <label htmlFor="registro-correo">
+              Correo electrónico
+            </label>
+
+            <div className="registro-input-contenedor">
+
+              <span>
+                ✉️
+              </span>
 
               <input
-                id="correo"
+                id="registro-correo"
                 type="email"
+                placeholder="correo@ejemplo.com"
                 value={correo}
                 onChange={manejarCorreo}
-                placeholder="correo@ejemplo.com"
-                required
+                autoComplete="email"
+                disabled={cargando}
               />
+
             </div>
 
-            <div className="campo-registro">
-              <label htmlFor="telefono">
-                Teléfono
-              </label>
+          </div>
+
+          {/* =================================================
+              CONTRASEÑA
+              ================================================= */}
+
+          <div className="registro-campo">
+
+            <label htmlFor="registro-contrasena">
+              Contraseña
+            </label>
+
+            <div className="registro-input-contenedor">
+
+              <span>
+                🔒
+              </span>
 
               <input
-                id="telefono"
-                type="tel"
-                value={telefono}
-                onChange={manejarTelefono}
-                placeholder="300 123 4567"
-                required
-              />
-            </div>
-
-            <div className="campo-registro">
-              <label htmlFor="contrasena">
-                Contraseña
-              </label>
-
-              <input
-                id="contrasena"
-                type="password"
+                id="registro-contrasena"
+                type={
+                  mostrarPassword
+                    ? "text"
+                    : "password"
+                }
+                placeholder="Crea una contraseña segura"
                 value={contrasena}
                 onChange={manejarContrasena}
-                placeholder="Crea una contraseña"
-                required
+                autoComplete="new-password"
+                disabled={cargando}
               />
+
+              <button
+                type="button"
+                className="registro-mostrar-password"
+                onClick={() =>
+                  setMostrarPassword(
+                    !mostrarPassword
+                  )
+                }
+                disabled={cargando}
+                aria-label={
+                  mostrarPassword
+                    ? "Ocultar contraseña"
+                    : "Mostrar contraseña"
+                }
+              >
+                {mostrarPassword
+                  ? "🙈"
+                  : "👁️"}
+              </button>
+
             </div>
 
-            <button
-              type="submit"
-              className="formulario-boton"
-            >
-              Registrarme
-            </button>
+            {/* =================================================
+                REQUISITOS DE CONTRASEÑA
+                ================================================= */}
 
-          </form>
+            <div className="registro-requisitos">
 
-          <CardAccion
-            titulo="¿Ya tienes una cuenta?"
-            texto="Ingresa a MAREVA para continuar tu viaje."
-            estado="ACCESO"
-            boton="Iniciar sesión"
-            onAccion={() =>
-              mostrarMensaje(
-                "¡Iniciar sesión!",
-                "La opción para iniciar sesión fue seleccionada correctamente."
-              )
-            }
-          />
+              <span
+                className={
+                  contrasena.length >= 8
+                    ? "cumplido"
+                    : ""
+                }
+              >
+                ✓ Mínimo 8 caracteres
+              </span>
+
+              <span
+                className={
+                  /[A-Z]/.test(contrasena)
+                    ? "cumplido"
+                    : ""
+                }
+              >
+                ✓ Una letra mayúscula
+              </span>
+
+              <span
+                className={
+                  /[a-z]/.test(contrasena)
+                    ? "cumplido"
+                    : ""
+                }
+              >
+                ✓ Una letra minúscula
+              </span>
+
+              <span
+                className={
+                  /[0-9]/.test(contrasena)
+                    ? "cumplido"
+                    : ""
+                }
+              >
+                ✓ Un número
+              </span>
+
+              <span
+                className={
+                  /[!@#$%^&*(),.?":{}|<>_\-+=/\\[\]';`~]/.test(
+                    contrasena
+                  )
+                    ? "cumplido"
+                    : ""
+                }
+              >
+                ✓ Un carácter especial
+              </span>
+
+            </div>
+
+          </div>
+
+          {/* =================================================
+              CONFIRMAR CONTRASEÑA
+              ================================================= */}
+
+          <div className="registro-campo">
+
+            <label htmlFor="registro-confirmar">
+              Confirmar contraseña
+            </label>
+
+            <div className="registro-input-contenedor">
+
+              <span>
+                🔐
+              </span>
+
+              <input
+                id="registro-confirmar"
+                type={
+                  mostrarConfirmacion
+                    ? "text"
+                    : "password"
+                }
+                placeholder="Repite tu contraseña"
+                value={confirmarContrasena}
+                onChange={
+                  manejarConfirmarContrasena
+                }
+                autoComplete="new-password"
+                disabled={cargando}
+              />
+
+              <button
+                type="button"
+                className="registro-mostrar-password"
+                onClick={() =>
+                  setMostrarConfirmacion(
+                    !mostrarConfirmacion
+                  )
+                }
+                disabled={cargando}
+                aria-label={
+                  mostrarConfirmacion
+                    ? "Ocultar contraseña"
+                    : "Mostrar contraseña"
+                }
+              >
+                {mostrarConfirmacion
+                  ? "🙈"
+                  : "👁️"}
+              </button>
+
+            </div>
+
+            {/* =================================================
+                COMPROBAR COINCIDENCIA
+                ================================================= */}
+
+            {confirmarContrasena && (
+
+              <span
+                className={
+                  contrasena ===
+                  confirmarContrasena
+                    ? "registro-coincide"
+                    : "registro-no-coincide"
+                }
+              >
+                {contrasena ===
+                confirmarContrasena
+                  ? "✓ Las contraseñas coinciden"
+                  : "✕ Las contraseñas no coinciden"}
+              </span>
+
+            )}
+
+          </div>
+
+          {/* =================================================
+              BOTÓN
+              ================================================= */}
+
+          <button
+            type="submit"
+            className="registro-boton"
+            disabled={cargando}
+          >
+
+            {cargando ? (
+              <>
+                <span className="registro-spinner"></span>
+                Creando cuenta...
+              </>
+            ) : (
+              "Crear mi cuenta"
+            )}
+
+          </button>
+
+        </form>
+
+        {/* ==================================================
+            VOLVER AL LOGIN
+            ================================================== */}
+
+        <div className="registro-login">
+
+          <p>
+            ¿Ya tienes una cuenta?
+          </p>
+
+          <button
+            type="button"
+            onClick={() => irA("login")}
+            disabled={cargando}
+          >
+            Iniciar sesión
+          </button>
 
         </div>
 
       </div>
+
     </section>
   );
-}
+};
 
 export default Registro;
