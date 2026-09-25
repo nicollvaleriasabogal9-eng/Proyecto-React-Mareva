@@ -1,8 +1,7 @@
-import { useState } from "react";
-import CardAccion from "./CardAccion";
+import { useEffect, useMemo, useState } from "react";
 import "./Paquetes.css";
 
-interface Paquete {
+export interface Paquete {
   slug: string;
   nombre: string;
   categoria: string;
@@ -17,9 +16,16 @@ interface Paquete {
 
 interface PaquetesProps {
   mostrarMensaje: (titulo: string, mensaje: string) => void;
+  favoritos?: string[];
+  cambiarFavorito?: (slug: string) => void;
+  seleccionarPaquete: (paquete: Paquete) => void;
 }
 
-const PAQUETES: Paquete[] = [
+/* =========================================================
+   PAQUETES
+========================================================= */
+
+export const PAQUETES: Paquete[] = [
   {
     slug: "cartagena-magica",
     nombre: "Cartagena Mágica",
@@ -27,11 +33,10 @@ const PAQUETES: Paquete[] = [
     precio: 1850000,
     duracion_dias: 5,
     duracion_noches: 4,
-    descripcion:
-      "Descubre la ciudad amurallada con playas privadas e historia colonial.",
+    descripcion: "Disfruta playas, historia, cultura y el encanto de la ciudad amurallada.",
     destino: "Cartagena",
     departamento: "Bolívar",
-    imagen: "/destinos/cartagena.jpg",
+    imagen: "/destinos/cartagena.jpg"
   },
   {
     slug: "medellin-innovadora",
@@ -40,11 +45,10 @@ const PAQUETES: Paquete[] = [
     precio: 1200000,
     duracion_dias: 4,
     duracion_noches: 3,
-    descripcion:
-      "Conoce la ciudad más transformadora de América Latina.",
+    descripcion: "Descubre la transformación, gastronomía y cultura de Medellín.",
     destino: "Medellín",
     departamento: "Antioquia",
-    imagen: "/destinos/medellin.jpg",
+    imagen: "/destinos/medellin.jpg"
   },
   {
     slug: "guatape-extremo",
@@ -53,37 +57,34 @@ const PAQUETES: Paquete[] = [
     precio: 890000,
     duracion_dias: 3,
     duracion_noches: 2,
-    descripcion:
-      "Adrenalina pura: sube la Piedra del Peñol y navega el embalse.",
+    descripcion: "Naturaleza, aventura y paisajes increíbles alrededor de la Piedra del Peñol.",
     destino: "Guatapé",
     departamento: "Antioquia",
-    imagen: "/destinos/guatape.jpg",
+    imagen: "/destinos/guatape.jpg"
   },
   {
     slug: "san-andres-todo-incluido",
     nombre: "San Andrés Todo Incluido",
     categoria: "Playa",
     precio: 3200000,
-    duracion_dias: 7,
-    duracion_noches: 6,
-    descripcion:
-      "El mar de los siete colores con todo incluido en resort 5 estrellas.",
+    duracion_dias: 6,
+    duracion_noches: 5,
+    descripcion: "Vive el mar de siete colores con una experiencia completa.",
     destino: "San Andrés",
     departamento: "San Andrés",
-    imagen: "/destinos/san-andres.jpg",
+    imagen: "/destinos/san-andres.jpg"
   },
   {
     slug: "tayrona-salvaje",
     nombre: "Tayrona Salvaje",
     categoria: "Ecoturismo",
     precio: 1450000,
-    duracion_dias: 5,
-    duracion_noches: 4,
-    descripcion:
-      "Selva, playas vírgenes y ecosistemas únicos en el Parque Tayrona.",
+    duracion_dias: 4,
+    duracion_noches: 3,
+    descripcion: "Conecta con la naturaleza en uno de los lugares más especiales de Colombia.",
     destino: "Parque Tayrona",
     departamento: "Magdalena",
-    imagen: "/destinos/tayrona.jpg",
+    imagen: "/destinos/tayrona.jpg"
   },
   {
     slug: "valle-cocora-mistico",
@@ -92,24 +93,22 @@ const PAQUETES: Paquete[] = [
     precio: 980000,
     duracion_dias: 3,
     duracion_noches: 2,
-    descripcion:
-      "Caminata entre palmas de cera y fincas cafeteras del Quindío.",
+    descripcion: "Recorre paisajes de montaña rodeados de las famosas palmas de cera.",
     destino: "Valle del Cocora",
     departamento: "Quindío",
-    imagen: "/destinos/valle-cocora.jpg",
+    imagen: "/destinos/eje-cafetero.jpg"
   },
   {
     slug: "amazonas-aventura",
     nombre: "Amazonas Aventura",
     categoria: "Aventura",
     precio: 2750000,
-    duracion_dias: 6,
-    duracion_noches: 5,
-    descripcion:
-      "Explora la selva amazónica y conoce comunidades indígenas.",
+    duracion_dias: 5,
+    duracion_noches: 4,
+    descripcion: "Explora la selva amazónica y conoce una biodiversidad única.",
     destino: "Leticia",
     departamento: "Amazonas",
-    imagen: "/destinos/amazonas.jpg",
+    imagen: "/destinos/amazonas.jpg"
   },
   {
     slug: "tatacoa",
@@ -118,24 +117,22 @@ const PAQUETES: Paquete[] = [
     precio: 750000,
     duracion_dias: 3,
     duracion_noches: 2,
-    descripcion:
-      "Observación astronómica y recorridos por paisajes únicos.",
-    destino: "Desierto Tatacoa",
+    descripcion: "Paisajes desérticos, estrellas y una experiencia completamente diferente.",
+    destino: "Desierto de la Tatacoa",
     departamento: "Huila",
-    imagen: "/destinos/tatacoa.jpg",
+    imagen: "/destinos/tatacoa.jpg"
   },
   {
     slug: "cano-cristales",
     nombre: "Caño Cristales Premium",
-    categoria: "Aventura",
+    categoria: "Ecoturismo",
     precio: 2950000,
     duracion_dias: 5,
     duracion_noches: 4,
-    descripcion:
-      "Visita el río más hermoso del mundo con guía especializado.",
+    descripcion: "Conoce el río de los cinco colores y los paisajes del Meta.",
     destino: "Caño Cristales",
     departamento: "Meta",
-    imagen: "/destinos/cano-cristales.jpg",
+    imagen: "/destinos/cano-cristales.jpg"
   },
   {
     slug: "eje-cafetero",
@@ -144,309 +141,717 @@ const PAQUETES: Paquete[] = [
     precio: 1350000,
     duracion_dias: 4,
     duracion_noches: 3,
-    descripcion:
-      "Recorrido por fincas cafeteras y pueblos patrimonio.",
+    descripcion: "Café, montañas, pueblos tradicionales y cultura colombiana.",
     destino: "Armenia",
     departamento: "Quindío",
-    imagen: "/destinos/eje-cafetero.jpg",
+    imagen: "/destinos/eje-cafetero.jpg"
   },
   {
-    slug: "nuqui-ecoturismo",
+    slug: "nuqui",
     nombre: "Nuquí Ecoturismo",
-    categoria: "Playa",
+    categoria: "Ecoturismo",
     precio: 2400000,
     duracion_dias: 5,
     duracion_noches: 4,
-    descripcion:
-      "Avistamiento de ballenas y playas vírgenes del Pacífico.",
+    descripcion: "Playas, selva y naturaleza en la costa del Pacífico colombiano.",
     destino: "Nuquí",
     departamento: "Chocó",
-    imagen: "/destinos/nuqui.jpg",
+    imagen: "/destinos/nuqui.jpg"
   },
   {
-    slug: "barichara-colonial",
+    slug: "barichara",
     nombre: "Barichara Colonial",
     categoria: "Cultural",
     precio: 890000,
     duracion_dias: 3,
     duracion_noches: 2,
-    descripcion:
-      "Conoce uno de los pueblos más bellos de Colombia.",
+    descripcion: "Arquitectura colonial, calles de piedra y paisajes de Santander.",
     destino: "Barichara",
     departamento: "Santander",
-    imagen: "/destinos/barichara.jpg",
+    imagen: "/destinos/barichara.jpg"
   },
   {
-    slug: "santuario-las-lajas",
+    slug: "las-lajas",
     nombre: "Santuario Las Lajas",
     categoria: "Cultural",
     precio: 680000,
     duracion_dias: 3,
     duracion_noches: 2,
-    descripcion:
-      "Basílica neogótica construida sobre un cañón.",
+    descripcion: "Conoce uno de los santuarios más impresionantes de Colombia.",
     destino: "Ipiales",
     departamento: "Nariño",
-    imagen: "/destinos/las-lajas.jpg",
+    imagen: "/destinos/las-lajas.jpg"
   },
   {
     slug: "boyaca-historica",
     nombre: "Boyacá Histórica",
     categoria: "Cultural",
     precio: 980000,
-    duracion_dias: 4,
-    duracion_noches: 3,
-    descripcion:
-      "Villa de Leyva, Ráquira y monumentos históricos.",
+    duracion_dias: 3,
+    duracion_noches: 2,
+    descripcion: "Historia, arquitectura y pueblos tradicionales de Boyacá.",
     destino: "Villa de Leyva",
     departamento: "Boyacá",
-    imagen: "/destinos/boyaca.jpg",
+    imagen: "/destinos/villa-de-leyva.jpg"
   },
   {
-    slug: "canon-del-chicamocha",
+    slug: "chicamocha",
     nombre: "Cañón del Chicamocha",
     categoria: "Aventura",
     precio: 1150000,
-    duracion_dias: 4,
-    duracion_noches: 3,
-    descripcion:
-      "Deportes extremos y paisajes espectaculares.",
+    duracion_dias: 3,
+    duracion_noches: 2,
+    descripcion: "Paisajes increíbles y aventura en el impresionante cañón.",
     destino: "San Gil",
     departamento: "Santander",
-    imagen: "/destinos/chicamocha.jpg",
+    imagen: "/destinos/chicamocha.jpg"
   },
   {
-    slug: "mompox-patrimonial",
+    slug: "mompox",
     nombre: "Mompox Patrimonial",
     categoria: "Cultural",
     precio: 1250000,
     duracion_dias: 4,
     duracion_noches: 3,
-    descripcion:
-      "Historia, arquitectura colonial y cultura ribereña.",
+    descripcion: "Historia, arquitectura y tranquilidad a orillas del río Magdalena.",
     destino: "Mompox",
     departamento: "Bolívar",
-    imagen: "/destinos/mompox.jpg",
+    imagen: "/destinos/mompox.jpg"
   },
   {
-    slug: "sierra-nevada-ancestral",
+    slug: "sierra-nevada",
     nombre: "Sierra Nevada Ancestral",
-    categoria: "Aventura",
+    categoria: "Ecoturismo",
     precio: 2100000,
     duracion_dias: 5,
     duracion_noches: 4,
-    descripcion:
-      "Conexión con comunidades indígenas y naturaleza.",
+    descripcion: "Naturaleza, montaña y conexión con culturas ancestrales.",
     destino: "Santa Marta",
     departamento: "Magdalena",
-    imagen: "/destinos/sierra-nevada.jpg",
+    imagen: "/destinos/santa-marta.jpg"
   },
   {
-    slug: "tolu-covenas-relax",
+    slug: "tolu-covenas",
     nombre: "Tolú y Coveñas Relax",
     categoria: "Playa",
     precio: 1100000,
     duracion_dias: 4,
     duracion_noches: 3,
-    descripcion:
-      "Playas tranquilas y actividades acuáticas.",
+    descripcion: "Sol, playa y descanso en la costa del Caribe colombiano.",
     destino: "Tolú",
     departamento: "Sucre",
-    imagen: "/destinos/tolu.jpg",
+    imagen: "/destinos/tolu.jpg"
   },
   {
-    slug: "isla-gorgona-explorer",
+    slug: "gorgona",
     nombre: "Isla Gorgona Explorer",
     categoria: "Aventura",
     precio: 2800000,
     duracion_dias: 5,
     duracion_noches: 4,
-    descripcion:
-      "Naturaleza, senderismo y biodiversidad marina.",
+    descripcion: "Una aventura natural entre selva, mar y biodiversidad.",
     destino: "Guapi",
     departamento: "Cauca",
-    imagen: "/destinos/gorgona.jpg",
+    imagen: "/destinos/gorgona.jpg"
   },
   {
-    slug: "capurgana-paraiso",
+    slug: "capurgana",
     nombre: "Capurganá Paraíso",
     categoria: "Playa",
     precio: 1900000,
     duracion_dias: 5,
     duracion_noches: 4,
-    descripcion:
-      "Playas cristalinas y ecoturismo en el Caribe colombiano.",
+    descripcion: "Playas cristalinas y naturaleza en el Caribe colombiano.",
     destino: "Acandí",
     departamento: "Chocó",
-    imagen: "/destinos/capurgana.jpg",
-  },
+    imagen: "/destinos/capurgana.jpg"
+  }
 ];
 
 const CATEGORIAS = [
-  {
-    nombre: "Todas",
-    icono: "✨",
-  },
-  {
-    nombre: "Playa",
-    icono: "🏖️",
-  },
-  {
-    nombre: "Ciudad",
-    icono: "🏙️",
-  },
-  {
-    nombre: "Aventura",
-    icono: "🧗",
-  },
-  {
-    nombre: "Ecoturismo",
-    icono: "🌿",
-  },
-  {
-    nombre: "Cultural",
-    icono: "🏛️",
-  },
+  { nombre: "Todas", icono: "✨" },
+  { nombre: "Playa", icono: "🏖️" },
+  { nombre: "Ciudad", icono: "🏙️" },
+  { nombre: "Aventura", icono: "🧗" },
+  { nombre: "Ecoturismo", icono: "🌿" },
+  { nombre: "Cultural", icono: "🏛️" }
 ];
 
-function Paquetes({ mostrarMensaje }: PaquetesProps) {
+function formatearPrecio(valor: number): string {
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0
+  }).format(valor);
+}
+
+function obtenerImagen(paquete: Paquete): string {
+  if (paquete.imagen && paquete.imagen.trim() !== "") {
+    return paquete.imagen;
+  }
+
+  return "/destinos/tayrona.jpg";
+}
+
+export default function Paquetes({
+  mostrarMensaje,
+  favoritos = [],
+  cambiarFavorito,
+  seleccionarPaquete
+}: PaquetesProps) {
+
   const [categoriaSeleccionada, setCategoriaSeleccionada] =
-    useState<string>("Todas");
+    useState("Todas");
 
-  const paquetesFiltrados = PAQUETES.filter((paquete) => {
-    if (categoriaSeleccionada === "Todas") {
-      return true;
-    }
+  const [paquetes, setPaquetes] =
+    useState<Paquete[]>(PAQUETES);
 
-    return paquete.categoria === categoriaSeleccionada;
+  const [busqueda, setBusqueda] = useState({
+    destino: "",
+    fechaIda: "",
+    fechaRegreso: "",
+    adultos: 2,
+    menores: 0,
+    bebes: 0
   });
 
+  const [busquedaActiva, setBusquedaActiva] =
+    useState(false);
+
+  /* =====================================================
+     CARGAR PAQUETES GUARDADOS
+  ===================================================== */
+
+  useEffect(() => {
+    try {
+      const guardados = localStorage.getItem("mareva_paquetes");
+
+      if (guardados) {
+        const parsed = JSON.parse(guardados);
+
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setPaquetes(parsed);
+        }
+      }
+    } catch {
+      setPaquetes(PAQUETES);
+    }
+  }, []);
+
+  /* =====================================================
+     CARGAR BUSQUEDA DEL INICIO
+  ===================================================== */
+
+  useEffect(() => {
+    try {
+      const guardada = localStorage.getItem("mareva_busqueda");
+
+      if (guardada) {
+        const datos = JSON.parse(guardada);
+
+        setBusqueda({
+          destino: datos.destino || "",
+          fechaIda: datos.fechaIda || "",
+          fechaRegreso: datos.fechaRegreso || "",
+          adultos: Number(datos.adultos) || 2,
+          menores: Number(datos.menores) || 0,
+          bebes: Number(datos.bebes) || 0
+        });
+
+        if (
+          datos.destino ||
+          datos.fechaIda ||
+          datos.fechaRegreso
+        ) {
+          setBusquedaActiva(true);
+        }
+      }
+    } catch {
+      // Si no existe una búsqueda válida, se mantienen los valores iniciales.
+    }
+  }, []);
+
+  /* =====================================================
+     FILTRAR PAQUETES
+  ===================================================== */
+
+  const paquetesFiltrados = useMemo(() => {
+
+    const destinoBuscado =
+      busqueda.destino.trim().toLowerCase();
+
+    return paquetes.filter((paquete) => {
+
+      const coincideCategoria =
+        categoriaSeleccionada === "Todas" ||
+        paquete.categoria.toLowerCase() ===
+          categoriaSeleccionada.toLowerCase();
+
+      const textoPaquete = `
+        ${paquete.nombre}
+        ${paquete.destino}
+        ${paquete.departamento}
+        ${paquete.categoria}
+      `.toLowerCase();
+
+      const coincideDestino =
+        !destinoBuscado ||
+        textoPaquete.includes(destinoBuscado);
+
+      return coincideCategoria && coincideDestino;
+    });
+
+  }, [
+    paquetes,
+    categoriaSeleccionada,
+    busqueda.destino
+  ]);
+
+  /* =====================================================
+     FAVORITOS
+  ===================================================== */
+
+  const esFavorito = (slug: string) =>
+    favoritos.includes(slug);
+
+  const manejarFavorito = (
+    evento: React.MouseEvent,
+    slug: string
+  ) => {
+
+    evento.stopPropagation();
+
+    if (cambiarFavorito) {
+      cambiarFavorito(slug);
+    }
+  };
+
+  /* =====================================================
+     RESERVAR
+  ===================================================== */
+
+  const manejarReserva = (
+    paquete: Paquete
+  ) => {
+
+    seleccionarPaquete(paquete);
+  };
+
+  /* =====================================================
+     LIMPIAR BUSQUEDA
+  ===================================================== */
+
+  const limpiarBusqueda = () => {
+
+    const nuevaBusqueda = {
+      destino: "",
+      fechaIda: "",
+      fechaRegreso: "",
+      adultos: 2,
+      menores: 0,
+      bebes: 0
+    };
+
+    setBusqueda(nuevaBusqueda);
+
+    setBusquedaActiva(false);
+
+    localStorage.removeItem("mareva_busqueda");
+  };
+
+  /* =====================================================
+     RENDER
+  ===================================================== */
+
   return (
-    <section className="paquetes-seccion">
-      <div className="paquetes-encabezado">
-        <span className="paquetes-etiqueta">
-          MAREVA · VIAJES POR COLOMBIA
-        </span>
+    <main className="paquetes-page">
 
-        <h1>
-          Descubre tu próximo <em>destino</em>
-        </h1>
+      {/* =================================================
+          ENCABEZADO
+      ================================================= */}
 
-        <p>
-          Explora nuestros paquetes turísticos y vive
-          experiencias inolvidables por Colombia.
-        </p>
-      </div>
+      <section className="paquetes-hero">
 
-      <div className="filtros-categorias">
-        {CATEGORIAS.map((categoria) => (
-          <button
-            key={categoria.nombre}
-            type="button"
-            className={
-              categoriaSeleccionada === categoria.nombre
-                ? "categoria-btn categoria-activa"
-                : "categoria-btn"
-            }
-            onClick={() =>
-              setCategoriaSeleccionada(categoria.nombre)
-            }
-          >
-            <span className="categoria-icono">
-              {categoria.icono}
-            </span>
+        <div className="paquetes-hero-contenido">
 
-            {categoria.nombre}
-          </button>
-        ))}
-      </div>
+          <div className="paquetes-etiqueta">
+            ✈️ MAREVA · VIAJA POR COLOMBIA
+          </div>
 
-      <div className="paquetes-resultados">
-        <span>
-          {paquetesFiltrados.length}{" "}
-          {paquetesFiltrados.length === 1
-            ? "paquete disponible"
-            : "paquetes disponibles"}
-        </span>
-      </div>
+          <h1>
+            Descubre tu próximo{" "}
+            <span>destino</span>
+          </h1>
 
-      <div className="paquetes-grid">
-        {paquetesFiltrados.map((paquete) => (
-          <article
-            className="paquete-card"
-            key={paquete.slug}
-          >
-            <div className="paquete-imagen-container">
-              <img
-                src={paquete.imagen}
-                alt={paquete.nombre}
-                className="paquete-imagen"
-              />
+          <p>
+            Explora nuestros paquetes turísticos,
+            encuentra tu viaje ideal y crea
+            recuerdos inolvidables.
+          </p>
+
+        </div>
+
+      </section>
+
+
+      {/* =================================================
+          CONTENIDO
+      ================================================= */}
+
+      <section className="paquetes-contenido">
+
+        {/* BUSQUEDA ACTIVA */}
+
+        {busquedaActiva && (
+          <div className="busqueda-resumen">
+
+            <div className="busqueda-resumen-icono">
+              🔎
             </div>
 
-            <div className="paquete-contenido">
-              <span className="paquete-categoria">
-                {paquete.categoria}
+            <div className="busqueda-resumen-info">
+
+              <strong>
+                Tu búsqueda
+              </strong>
+
+              <span>
+                {busqueda.destino
+                  ? `Destino: ${busqueda.destino}`
+                  : "Todos los destinos"}
+
+                {" · "}
+
+                {busqueda.fechaIda
+                  ? `Salida: ${busqueda.fechaIda}`
+                  : "Fecha flexible"}
+
+                {" · "}
+
+                {busqueda.adultos +
+                  busqueda.menores +
+                  busqueda.bebes}{" "}
+                viajeros
               </span>
 
-              <h2 className="paquete-nombre">
-                {paquete.nombre}
-              </h2>
-
-              <div className="paquete-datos">
-                <p>
-                  📍 <strong>{paquete.destino}</strong>,{" "}
-                  {paquete.departamento}
-                </p>
-
-                <p>
-                  🕐 {paquete.duracion_dias} días /{" "}
-                  {paquete.duracion_noches} noches
-                </p>
-              </div>
-
-              <p className="paquete-descripcion">
-                {paquete.descripcion}
-              </p>
-
-              <div className="paquete-footer">
-                <div className="paquete-precio">
-                  <span>Desde</span>
-
-                  <strong>
-                    ${paquete.precio.toLocaleString("es-CO")}
-                  </strong>
-                </div>
-
-                <CardAccion
-                  titulo=""
-                  texto=""
-                  estado=""
-                  boton="Reservar"
-                  onAccion={() =>
-                    mostrarMensaje(
-                      "¡Paquete seleccionado!",
-                      `Has seleccionado el paquete ${paquete.nombre}. ¡Prepárate para vivir una experiencia inolvidable!`
-                    )
-                  }
-                />
-              </div>
             </div>
-          </article>
-        ))}
-      </div>
 
-      {paquetesFiltrados.length === 0 && (
-        <div className="sin-paquetes">
-          <span>🌎</span>
-          <h2>No encontramos paquetes</h2>
-          <p>
-            Intenta seleccionar otra categoría.
-          </p>
+            <button
+              type="button"
+              onClick={limpiarBusqueda}
+            >
+              Limpiar búsqueda
+            </button>
+
+          </div>
+        )}
+
+
+        {/* =================================================
+            TITULO
+        ================================================= */}
+
+        <div className="paquetes-titulo">
+
+          <div>
+
+            <span>
+              ✦ EXPERIENCIAS PARA TI
+            </span>
+
+            <h2>
+              Elige tu próxima{" "}
+              <strong>aventura</strong>
+            </h2>
+
+            <p>
+              Tenemos opciones para todos los estilos
+              de viaje.
+            </p>
+
+          </div>
+
+          <div className="contador-paquetes">
+            <strong>
+              {paquetesFiltrados.length}
+            </strong>
+
+            <span>
+              paquetes disponibles
+            </span>
+          </div>
+
         </div>
-      )}
-    </section>
+
+
+        {/* =================================================
+            CATEGORIAS
+        ================================================= */}
+
+        <div className="categorias-mareva">
+
+          {CATEGORIAS.map((categoria) => (
+
+            <button
+              key={categoria.nombre}
+              type="button"
+              className={
+                categoriaSeleccionada === categoria.nombre
+                  ? "categoria-mareva activa"
+                  : "categoria-mareva"
+              }
+              onClick={() =>
+                setCategoriaSeleccionada(
+                  categoria.nombre
+                )
+              }
+            >
+
+              <span>
+                {categoria.icono}
+              </span>
+
+              {categoria.nombre}
+
+            </button>
+
+          ))}
+
+        </div>
+
+
+        {/* =================================================
+            RESULTADOS
+        ================================================= */}
+
+        {paquetesFiltrados.length > 0 ? (
+
+          <div className="paquetes-grid-mareva">
+
+            {paquetesFiltrados.map(
+              (paquete, index) => (
+
+                <article
+                  key={paquete.slug}
+                  className="paquete-card-mareva"
+                  style={{
+                    animationDelay:
+                      `${index * 0.05}s`
+                  }}
+                >
+
+                  {/* IMAGEN */}
+
+                  <div
+                    className="paquete-card-imagen"
+                    onClick={() =>
+                      manejarReserva(paquete)
+                    }
+                  >
+
+                    <img
+                      src={obtenerImagen(paquete)}
+                      alt={paquete.nombre}
+                      onError={(
+                        evento
+                      ) => {
+                        const imagen =
+                          evento.currentTarget;
+
+                        if (
+                          !imagen.dataset.fallback
+                        ) {
+                          imagen.dataset.fallback =
+                            "true";
+
+                          imagen.src =
+                            "/destinos/tayrona.jpg";
+                        }
+                      }}
+                    />
+
+                    <div className="imagen-degradado" />
+
+                    <span className="categoria-imagen">
+                      {paquete.categoria}
+                    </span>
+
+                    <button
+                      type="button"
+                      className={
+                        esFavorito(paquete.slug)
+                          ? "favorito-mareva favorito-activo"
+                          : "favorito-mareva"
+                      }
+                      onClick={(evento) =>
+                        manejarFavorito(
+                          evento,
+                          paquete.slug
+                        )
+                      }
+                      aria-label="Agregar a favoritos"
+                    >
+                      {esFavorito(paquete.slug)
+                        ? "♥"
+                        : "♡"}
+                    </button>
+
+                  </div>
+
+
+                  {/* INFORMACION */}
+
+                  <div className="paquete-card-contenido">
+
+                    <div className="paquete-ubicacion">
+                      📍{" "}
+                      <strong>
+                        {paquete.destino}
+                      </strong>
+
+                      <span>
+                        , {paquete.departamento}
+                      </span>
+                    </div>
+
+                    <h3>
+                      {paquete.nombre}
+                    </h3>
+
+                    <p className="paquete-descripcion">
+                      {paquete.descripcion}
+                    </p>
+
+
+                    {/* DETALLES */}
+
+                    <div className="paquete-tags">
+
+                      <span>
+                        🌙{" "}
+                        {paquete.duracion_noches} noches
+                      </span>
+
+                      <span>
+                        📅{" "}
+                        {paquete.duracion_dias} días
+                      </span>
+
+                      <span>
+                        ✈️ Experiencia Mareva
+                      </span>
+
+                    </div>
+
+
+                    {/* PRECIO */}
+
+                    <div className="paquete-card-footer">
+
+                      <div className="precio-mareva">
+
+                        <small>
+                          Desde
+                        </small>
+
+                        <strong>
+                          {formatearPrecio(
+                            paquete.precio
+                          )}
+                        </strong>
+
+                        <span>
+                          por persona
+                        </span>
+
+                      </div>
+
+                      <button
+                        type="button"
+                        className="reservar-mareva"
+                        onClick={() =>
+                          manejarReserva(paquete)
+                        }
+                      >
+                        Ver viaje
+                        <span>→</span>
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                </article>
+
+              )
+            )}
+
+          </div>
+
+        ) : (
+
+          /* =================================================
+             SIN RESULTADOS
+          ================================================= */
+
+          <div className="sin-resultados">
+
+            <div>
+              🔎
+            </div>
+
+            <h3>
+              No encontramos ese destino
+            </h3>
+
+            <p>
+              Prueba con otro destino o revisa
+              todas nuestras opciones.
+            </p>
+
+            <button
+              type="button"
+              onClick={() => {
+                limpiarBusqueda();
+                setCategoriaSeleccionada("Todas");
+              }}
+            >
+              Ver todos los paquetes
+            </button>
+
+          </div>
+
+        )}
+
+
+        {/* =================================================
+            MENSAJE FINAL
+        ================================================= */}
+
+        {paquetesFiltrados.length > 0 && (
+          <div className="paquetes-final">
+
+            <div>
+              ✈️
+            </div>
+
+            <section>
+              <strong>
+                ¿Listo para viajar?
+              </strong>
+
+              <span>
+                Encuentra tu próxima experiencia
+                con Mareva.
+              </span>
+            </section>
+
+          </div>
+        )}
+
+      </section>
+
+    </main>
   );
 }
 
-export default Paquetes;
