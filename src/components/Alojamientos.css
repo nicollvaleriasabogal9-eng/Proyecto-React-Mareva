@@ -1,0 +1,496 @@
+.alojamientos-page {
+  min-height: 100%;
+  padding: 35px;
+  background: #f8f9ff;
+}
+
+.alojamientos-encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.alojamientos-etiqueta {
+  color: #7026a8;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.alojamientos-encabezado h1 {
+  margin: 8px 0;
+  color: #292542;
+  font-size: 34px;
+  font-family: Georgia, serif;
+}
+
+.alojamientos-encabezado p {
+  margin: 0;
+  color: #77758a;
+  font-size: 16px;
+}
+
+.btn-nuevo-alojamiento {
+  border: none;
+  border-radius: 12px;
+  padding: 14px 22px;
+  background: linear-gradient(135deg, #7026a8, #2456d8);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(62, 45, 112, 0.2);
+  transition: 0.2s;
+}
+
+.btn-nuevo-alojamiento:hover {
+  transform: translateY(-2px);
+}
+
+.alojamientos-resumen {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.alojamiento-stat {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(62, 45, 112, 0.08);
+}
+
+.alojamiento-stat > span {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #f0e7ff;
+  font-size: 24px;
+}
+
+.alojamiento-stat div {
+  display: flex;
+  flex-direction: column;
+}
+
+.alojamiento-stat strong {
+  color: #292542;
+  font-size: 25px;
+}
+
+.alojamiento-stat small {
+  color: #77758a;
+  margin-top: 2px;
+}
+
+.alojamientos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.alojamiento-card {
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(62, 45, 112, 0.1);
+  transition: 0.2s;
+}
+
+.alojamiento-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(62, 45, 112, 0.15);
+}
+
+.alojamiento-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.alojamiento-icono {
+  width: 55px;
+  height: 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0e7ff, #eaf2ff);
+  border-radius: 15px;
+  font-size: 27px;
+}
+
+.estado {
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.estado.disponible {
+  background: #e5f8ee;
+  color: #218653;
+}
+
+.estado.no-disponible {
+  background: #ffe9e9;
+  color: #c43b3b;
+}
+
+.alojamiento-info h2 {
+  margin: 18px 0 6px;
+  color: #292542;
+  font-size: 22px;
+}
+
+.alojamiento-ciudad {
+  margin: 0;
+  color: #7026a8;
+  font-weight: 600;
+}
+
+.estrellas {
+  margin: 12px 0;
+  color: #e6a719;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.alojamiento-descripcion {
+  color: #77758a;
+  line-height: 1.6;
+  min-height: 52px;
+}
+
+.alojamiento-detalles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 20px;
+  padding-top: 18px;
+  border-top: 1px solid #eeeaf5;
+}
+
+.alojamiento-detalles div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.alojamiento-detalles span {
+  color: #77758a;
+  font-size: 12px;
+}
+
+.alojamiento-detalles strong {
+  color: #292542;
+  font-size: 17px;
+}
+
+.alojamiento-acciones {
+  display: flex;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.alojamiento-acciones button {
+  flex: 1;
+  border: none;
+  border-radius: 10px;
+  padding: 11px;
+  background: #eee7fa;
+  color: #7026a8;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.alojamiento-acciones button:hover {
+  background: #e2d5f5;
+}
+
+.alojamiento-acciones .btn-eliminar {
+  background: #fff0f0;
+  color: #c43b3b;
+}
+
+.alojamiento-acciones .btn-eliminar:hover {
+  background: #ffe0e0;
+}
+
+.alojamientos-cargando,
+.alojamientos-vacio {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(62, 45, 112, 0.08);
+  color: #77758a;
+}
+
+.alojamientos-vacio span {
+  font-size: 50px;
+}
+
+.alojamientos-vacio h2 {
+  color: #292542;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #eee7fa;
+  border-top-color: #7026a8;
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 900px) {
+  .alojamientos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .alojamientos-resumen {
+    grid-template-columns: 1fr;
+  }
+
+  .alojamientos-encabezado {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .alojamientos-page {
+    padding: 20px;
+  }
+
+  .alojamiento-detalles {
+    grid-template-columns: 1fr;
+  }
+}
+.alojamiento-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  background: rgba(41, 37, 66, 0.55);
+  backdrop-filter: blur(5px);
+}
+
+.alojamiento-modal {
+  width: min(720px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
+  border-radius: 22px;
+  box-shadow: 0 25px 70px rgba(41, 37, 66, 0.25);
+}
+
+.alojamiento-modal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 28px 30px 20px;
+  border-bottom: 1px solid #eeeaf5;
+}
+
+.alojamiento-modal-header span {
+  color: #7026a8;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.alojamiento-modal-header h2 {
+  margin: 7px 0;
+  color: #292542;
+  font-family: Georgia, serif;
+  font-size: 27px;
+}
+
+.alojamiento-modal-header p {
+  margin: 0;
+  color: #77758a;
+}
+
+.alojamiento-modal-cerrar {
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 10px;
+  background: #f3eef9;
+  color: #7026a8;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.alojamiento-modal-cerrar:hover {
+  background: #e8ddf3;
+}
+
+.alojamiento-formulario {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 25px 30px;
+}
+
+.campo-alojamiento {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.campo-alojamiento label {
+  color: #292542;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.campo-alojamiento input,
+.campo-alojamiento select,
+.campo-alojamiento textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ddd8e9;
+  border-radius: 11px;
+  padding: 12px 14px;
+  background: #fbfaff;
+  color: #292542;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.campo-alojamiento input:focus,
+.campo-alojamiento select:focus,
+.campo-alojamiento textarea:focus {
+  border-color: #7026a8;
+  box-shadow: 0 0 0 3px rgba(112, 38, 168, 0.1);
+}
+
+.campo-alojamiento textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.campo-completo {
+  grid-column: 1 / -1;
+}
+
+.alojamiento-opciones {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 25px;
+  padding: 5px 0;
+}
+
+.check-alojamiento {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #292542;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.check-alojamiento input {
+  width: 18px;
+  height: 18px;
+  accent-color: #7026a8;
+  cursor: pointer;
+}
+
+.alojamiento-modal-acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 30px 28px;
+  border-top: 1px solid #eeeaf5;
+}
+
+.btn-cancelar-alojamiento,
+.btn-guardar-alojamiento {
+  border: none;
+  border-radius: 11px;
+  padding: 12px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-cancelar-alojamiento {
+  background: #eeeaf5;
+  color: #5d5870;
+}
+
+.btn-cancelar-alojamiento:hover {
+  background: #e3ddec;
+}
+
+.btn-guardar-alojamiento {
+  background: linear-gradient(135deg, #7026a8, #2456d8);
+  color: #ffffff;
+  box-shadow: 0 7px 18px rgba(62, 45, 112, 0.2);
+}
+
+.btn-guardar-alojamiento:hover {
+  transform: translateY(-1px);
+}
+
+.btn-cancelar-alojamiento:disabled,
+.btn-guardar-alojamiento:disabled,
+.alojamiento-modal-cerrar:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 650px) {
+  .alojamiento-modal-overlay {
+    padding: 12px;
+  }
+
+  .alojamiento-formulario {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .campo-completo {
+    grid-column: auto;
+  }
+
+  .alojamiento-opciones {
+    grid-column: auto;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .alojamiento-modal-header {
+    padding: 22px 20px 18px;
+  }
+
+  .alojamiento-modal-acciones {
+    padding: 18px 20px 22px;
+  }
+}
