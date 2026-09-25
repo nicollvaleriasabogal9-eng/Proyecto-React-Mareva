@@ -1,0 +1,1097 @@
+/* =========================================================
+   MAREVA - CUPONES
+   Estilo panel administrativo
+   ========================================================= */
+
+.cupones-container {
+  width: 100%;
+  min-height: 100%;
+  padding: 30px;
+  box-sizing: border-box;
+  background: #f7f5fb;
+  color: #27212f;
+}
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.cupones-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 25px;
+  margin-bottom: 28px;
+}
+
+.cupones-kicker {
+  display: block;
+  margin-bottom: 7px;
+  color: #8a4bb3;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.cupones-header h1 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  color: #421568;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.cupones-icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7026a8, #914bc1);
+  color: white;
+  font-size: 24px;
+  box-shadow: 0 8px 20px rgba(112, 38, 168, 0.22);
+}
+
+.cupones-header p {
+  margin: 9px 0 0 60px;
+  color: #766e7e;
+  font-size: 15px;
+}
+
+/* =========================================================
+   BOTÓN NUEVO CUPÓN
+   ========================================================= */
+
+.btn-nuevo-cupon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #7026a8, #542080);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(112, 38, 168, 0.2);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.btn-nuevo-cupon span {
+  font-size: 21px;
+  line-height: 1;
+}
+
+.btn-nuevo-cupon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(112, 38, 168, 0.28);
+  filter: brightness(1.04);
+}
+
+.btn-nuevo-cupon:active {
+  transform: translateY(0);
+}
+
+.btn-nuevo-cupon.vacio {
+  margin-top: 15px;
+}
+
+/* =========================================================
+   ESTADÍSTICAS
+   ========================================================= */
+
+.cupones-estadisticas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.cupon-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  min-height: 92px;
+  padding: 18px 20px;
+  box-sizing: border-box;
+  border: 1px solid #ece5f3;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 5px 18px rgba(53, 22, 73, 0.06);
+}
+
+.cupon-stat-icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 13px;
+  background: #f0e4f8;
+  color: #7026a8;
+  font-size: 22px;
+}
+
+.cupon-stat-card div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cupon-stat-card span {
+  color: #817889;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cupon-stat-card strong {
+  color: #35104f;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+/* =========================================================
+   TARJETA PRINCIPAL
+   ========================================================= */
+
+.cupones-card {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #ebe4f2;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 8px 25px rgba(53, 22, 73, 0.07);
+}
+
+.cupones-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 23px 25px;
+  border-bottom: 1px solid #eee8f3;
+}
+
+.cupones-card-header h2 {
+  margin: 0;
+  color: #3d1454;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.cupones-card-header p {
+  margin: 5px 0 0;
+  color: #847a8b;
+  font-size: 13px;
+}
+
+.btn-recargar-cupones {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 0 15px;
+  border: 1px solid #dfd0e9;
+  border-radius: 10px;
+  background: #fff;
+  color: #642394;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-recargar-cupones:hover {
+  border-color: #b990cf;
+  background: #faf5fd;
+  transform: translateY(-1px);
+}
+
+.btn-recargar-cupones:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================================================
+   TABLA
+   ========================================================= */
+
+.tabla-cupones-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tabla-cupones {
+  width: 100%;
+  min-width: 950px;
+  border-collapse: collapse;
+}
+
+.tabla-cupones thead {
+  background: #faf8fc;
+}
+
+.tabla-cupones th {
+  padding: 15px 18px;
+  border-bottom: 1px solid #ece6f1;
+  color: #75697e;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.tabla-cupones td {
+  padding: 17px 18px;
+  border-bottom: 1px solid #f0ebf3;
+  vertical-align: middle;
+}
+
+.tabla-cupones tbody tr {
+  transition: background 0.2s ease;
+}
+
+.tabla-cupones tbody tr:hover {
+  background: #fcf9fe;
+}
+
+.tabla-cupones tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* =========================================================
+   CÓDIGO CUPÓN
+   ========================================================= */
+
+.codigo-cupon {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.codigo-icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: #f0e4f8;
+  color: #7026a8;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.codigo-cupon strong {
+  color: #451661;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+}
+
+/* =========================================================
+   DESCRIPCIÓN
+   ========================================================= */
+
+.descripcion-cupon {
+  max-width: 240px;
+  color: #5f5666;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.sin-descripcion {
+  color: #aaa2af;
+  font-style: italic;
+}
+
+/* =========================================================
+   DESCUENTO
+   ========================================================= */
+
+.descuento-cupon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 62px;
+  padding: 7px 11px;
+  border-radius: 8px;
+  background: #f3e9f8;
+  color: #7026a8;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+/* =========================================================
+   FECHAS
+   ========================================================= */
+
+.fechas-cupon {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  color: #6e6575;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.fechas-cupon b {
+  color: #493d51;
+  font-weight: 700;
+}
+
+/* =========================================================
+   ESTADO
+   ========================================================= */
+
+.estado-cupon {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 11px;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.estado-cupon:hover {
+  transform: translateY(-1px);
+}
+
+.estado-cupon.activo {
+  border-color: #d6eadf;
+  background: #eef9f3;
+  color: #23784a;
+}
+
+.estado-cupon.inactivo {
+  border-color: #e7e0e9;
+  background: #f5f2f6;
+  color: #766c79;
+}
+
+.estado-punto {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* =========================================================
+   ACCIONES
+   ========================================================= */
+
+.acciones-cupon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-accion {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  font-size: 15px;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.btn-accion:hover {
+  transform: translateY(-2px);
+}
+
+.btn-accion.editar {
+  border-color: #e1d2ec;
+  background: #f7f0fb;
+}
+
+.btn-accion.editar:hover {
+  border-color: #c9a9db;
+  background: #eee2f5;
+}
+
+.btn-accion.eliminar {
+  border-color: #f0d9de;
+  background: #fff5f6;
+}
+
+.btn-accion.eliminar:hover {
+  border-color: #e8b8c1;
+  background: #ffe9ec;
+}
+
+/* =========================================================
+   ESTADO CARGANDO
+   ========================================================= */
+
+.cupones-estado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: 40px;
+}
+
+.cupones-estado p {
+  margin-top: 15px;
+  color: #817788;
+  font-size: 14px;
+}
+
+.spinner-cupon {
+  width: 38px;
+  height: 38px;
+  border: 4px solid #eadcf1;
+  border-top-color: #7026a8;
+  border-radius: 50%;
+  animation: girar-cupon 0.8s linear infinite;
+}
+
+@keyframes girar-cupon {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   SIN CUPONES
+   ========================================================= */
+
+.cupones-vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.cupones-vacio-icono {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 78px;
+  height: 78px;
+  margin-bottom: 15px;
+  border-radius: 22px;
+  background: #f1e6f7;
+  color: #7026a8;
+  font-size: 35px;
+}
+
+.cupones-vacio h3 {
+  margin: 0;
+  color: #3f1555;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.cupones-vacio p {
+  max-width: 390px;
+  margin: 8px 0 0;
+  color: #867c8d;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.modal-cupon-overlay {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background: rgba(36, 17, 47, 0.58);
+  backdrop-filter: blur(4px);
+  animation: aparecer-overlay 0.2s ease;
+}
+
+@keyframes aparecer-overlay {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-cupon {
+  width: 100%;
+  max-width: 650px;
+  max-height: 92vh;
+  overflow-y: auto;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 25px 70px rgba(31, 11, 42, 0.3);
+  animation: aparecer-modal 0.25s ease;
+}
+
+@keyframes aparecer-modal {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =========================================================
+   HEADER MODAL
+   ========================================================= */
+
+.modal-cupon-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 25px 27px 21px;
+  border-bottom: 1px solid #eee8f3;
+  background: linear-gradient(
+    135deg,
+    #fbf8fd 0%,
+    #fff 100%
+  );
+}
+
+.modal-cupon-kicker {
+  display: block;
+  margin-bottom: 5px;
+  color: #8a4bb3;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.modal-cupon-header h2 {
+  margin: 0;
+  color: #3d1454;
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.modal-cupon-header p {
+  margin: 5px 0 0;
+  color: #857a8d;
+  font-size: 13px;
+}
+
+.btn-cerrar-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  background: #f4eff7;
+  color: #695c70;
+  font-size: 25px;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-cerrar-modal:hover {
+  background: #eae0ef;
+  color: #4d1a65;
+  transform: rotate(3deg);
+}
+
+.btn-cerrar-modal:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.formulario-cupon {
+  padding: 25px 27px 27px;
+}
+
+.campo-cupon {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 18px;
+}
+
+.campo-cupon label {
+  margin-bottom: 7px;
+  color: #44384c;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.campo-cupon input,
+.campo-cupon select,
+.campo-cupon textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ddd3e3;
+  border-radius: 10px;
+  outline: none;
+  background: #fff;
+  color: #302637;
+  font-family: inherit;
+  font-size: 14px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.campo-cupon input,
+.campo-cupon select {
+  height: 45px;
+  padding: 0 13px;
+}
+
+.campo-cupon textarea {
+  min-height: 88px;
+  padding: 11px 13px;
+  resize: vertical;
+  line-height: 1.45;
+}
+
+.campo-cupon input::placeholder,
+.campo-cupon textarea::placeholder {
+  color: #aaa1b0;
+}
+
+.campo-cupon input:focus,
+.campo-cupon select:focus,
+.campo-cupon textarea:focus {
+  border-color: #8c4db2;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(112, 38, 168, 0.1);
+}
+
+.campo-cupon input:disabled,
+.campo-cupon select:disabled,
+.campo-cupon textarea:disabled {
+  background: #f7f5f8;
+  cursor: not-allowed;
+}
+
+.campo-cupon small {
+  margin-top: 5px;
+  color: #968b9c;
+  font-size: 11px;
+}
+
+/* =========================================================
+   CAMPOS DOBLES
+   ========================================================= */
+
+.campos-dobles-cupon {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+/* =========================================================
+   INPUT CON SÍMBOLO
+   ========================================================= */
+
+.input-con-simbolo {
+  position: relative;
+  width: 100%;
+}
+
+.input-con-simbolo input {
+  padding-right: 42px;
+}
+
+.input-con-simbolo span {
+  position: absolute;
+  top: 50%;
+  right: 13px;
+  color: #7b3ba0;
+  font-size: 14px;
+  font-weight: 800;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+/* =========================================================
+   ESTADO EN FORMULARIO
+   ========================================================= */
+
+.estado-formulario-cupon {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 5px;
+  margin-bottom: 22px;
+  padding: 15px 16px;
+  border: 1px solid #e8deed;
+  border-radius: 12px;
+  background: #faf7fc;
+}
+
+.estado-formulario-cupon > div {
+  flex: 1;
+}
+
+.estado-formulario-cupon strong {
+  display: block;
+  color: #493b50;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.estado-formulario-cupon p {
+  margin: 4px 0 0;
+  color: #8b808f;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+/* =========================================================
+   SWITCH
+   ========================================================= */
+
+.switch-cupon {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: 46px;
+  height: 25px;
+}
+
+.switch-cupon input {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.slider-cupon {
+  position: absolute;
+  inset: 0;
+  border-radius: 30px;
+  background: #cfc8d2;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.slider-cupon::before {
+  position: absolute;
+  bottom: 3px;
+  left: 3px;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: #fff;
+  content: "";
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.18);
+  transition: transform 0.25s ease;
+}
+
+.switch-cupon input:checked + .slider-cupon {
+  background: #7026a8;
+}
+
+.switch-cupon input:checked + .slider-cupon::before {
+  transform: translateX(21px);
+}
+
+.switch-cupon input:disabled + .slider-cupon {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.texto-switch {
+  min-width: 52px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.texto-switch.activo {
+  color: #287b4d;
+}
+
+.texto-switch.inactivo {
+  color: #817782;
+}
+
+/* =========================================================
+   BOTONES FORMULARIO
+   ========================================================= */
+
+.botones-formulario-cupon {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding-top: 5px;
+}
+
+.btn-cancelar-cupon,
+.btn-guardar-cupon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 19px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.btn-cancelar-cupon {
+  border: 1px solid #ded5e3;
+  background: #fff;
+  color: #665a6c;
+}
+
+.btn-cancelar-cupon:hover {
+  background: #f8f5f9;
+  transform: translateY(-1px);
+}
+
+.btn-guardar-cupon {
+  gap: 8px;
+  border: none;
+  background: linear-gradient(
+    135deg,
+    #7026a8,
+    #542080
+  );
+  color: #fff;
+  box-shadow: 0 7px 16px rgba(112, 38, 168, 0.2);
+}
+
+.btn-guardar-cupon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(112, 38, 168, 0.28);
+}
+
+.btn-cancelar-cupon:disabled,
+.btn-guardar-cupon:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================================================
+   SPINNER PEQUEÑO
+   ========================================================= */
+
+.spinner-mini {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: girar-mini 0.7s linear infinite;
+}
+
+@keyframes girar-mini {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================================
+   SCROLL DEL MODAL
+   ========================================================= */
+
+.modal-cupon::-webkit-scrollbar {
+  width: 7px;
+}
+
+.modal-cupon::-webkit-scrollbar-track {
+  background: #f7f4f9;
+}
+
+.modal-cupon::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #cbb6d7;
+}
+
+.modal-cupon::-webkit-scrollbar-thumb:hover {
+  background: #a988b9;
+}
+
+/* =========================================================
+   RESPONSIVE - TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+  .cupones-container {
+    padding: 22px;
+  }
+
+  .cupones-estadisticas {
+    grid-template-columns: 1fr;
+  }
+
+  .cupones-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .btn-nuevo-cupon {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE - MÓVIL
+   ========================================================= */
+
+@media (max-width: 650px) {
+  .cupones-container {
+    padding: 16px;
+  }
+
+  .cupones-header h1 {
+    font-size: 27px;
+  }
+
+  .cupones-icono {
+    width: 42px;
+    height: 42px;
+    font-size: 21px;
+  }
+
+  .cupones-header p {
+    margin-left: 0;
+  }
+
+  .cupones-card-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .btn-recargar-cupones {
+    width: 100%;
+  }
+
+  .modal-cupon-overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal-cupon {
+    max-height: 94vh;
+    border-radius: 20px 20px 0 0;
+  }
+
+  .modal-cupon-header {
+    padding: 21px 20px 18px;
+  }
+
+  .formulario-cupon {
+    padding: 21px 20px 23px;
+  }
+
+  .campos-dobles-cupon {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .estado-formulario-cupon {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .estado-formulario-cupon > div {
+    min-width: calc(100% - 70px);
+  }
+
+  .texto-switch {
+    margin-left: auto;
+  }
+
+  .botones-formulario-cupon {
+    flex-direction: column-reverse;
+  }
+
+  .btn-cancelar-cupon,
+  .btn-guardar-cupon {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE - PANTALLAS MUY PEQUEÑAS
+   ========================================================= */
+
+@media (max-width: 400px) {
+  .cupones-container {
+    padding: 12px;
+  }
+
+  .cupon-stat-card {
+    padding: 15px;
+  }
+
+  .cupon-stat-icono {
+    width: 43px;
+    height: 43px;
+  }
+
+  .modal-cupon-header h2 {
+    font-size: 20px;
+  }
+
+  .estado-formulario-cupon {
+    gap: 10px;
+  }
+}
+
