@@ -1,0 +1,687 @@
+.inicio {
+  width: 100%;
+  background: #fff;
+  color: #172033;
+}
+
+.hero-mareva {
+  min-height: 620px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg, rgba(5,25,45,.88), rgba(5,25,45,.55), rgba(5,25,45,.15)),
+    url("/destinos/tayrona.jpg") center/cover no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-contenido {
+  width: min(1180px,92%);
+  margin: auto;
+  position: relative;
+  z-index: 2;
+  padding: 80px 0 70px;
+}
+
+.hero-etiqueta {
+  color: white;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.hero-contenido h1 {
+  color: white;
+  font-size: clamp(42px,6vw,72px);
+  line-height: 1.02;
+  margin: 18px 0;
+  font-weight: 900;
+  letter-spacing: -2px;
+}
+
+.hero-contenido h1 span {
+  color: #58d5c9;
+}
+
+.hero-contenido > p {
+  max-width: 620px;
+  color: rgba(255,255,255,.9);
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 36px;
+}
+
+/* BUSCADOR */
+
+.buscador-interactivo {
+  width: 100%;
+  max-width: 1080px;
+  min-height: 82px;
+  display: grid;
+  grid-template-columns: 1.4fr 1.2fr 1fr auto;
+  align-items: stretch;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 18px 45px rgba(0,0,0,.22);
+  position: relative;
+  z-index: 20;
+}
+
+.buscador-item {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 18px 22px;
+  position: relative;
+  cursor: pointer;
+  border-right: 1px solid #e7ebef;
+}
+
+.buscador-item:hover,
+.buscador-item.activo {
+  background: #f5fbfa;
+}
+
+.buscador-icono {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #e8f8f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.buscador-texto {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.buscador-texto span {
+  font-size: 10px;
+  font-weight: 900;
+  color: #7c8794;
+  letter-spacing: 1px;
+}
+
+.buscador-texto strong {
+  font-size: 14px;
+  color: #172033;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.buscador-texto small {
+  font-size: 11px;
+  color: #657180;
+}
+
+.boton-buscar {
+  margin: 10px;
+  border: none;
+  border-radius: 12px;
+  padding: 0 30px;
+  background: #ff6b35;
+  color: white;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.boton-buscar:hover {
+  background: #ed5521;
+}
+
+/* DROPDOWNS */
+
+.buscador-dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  width: 350px;
+  background: white;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.2);
+  color: #172033;
+  z-index: 100;
+}
+
+.buscador-dropdown h3 {
+  margin: 0 0 5px;
+}
+
+.dropdown-subtitulo {
+  margin: 0 0 15px;
+  color: #7c8794;
+  font-size: 13px;
+}
+
+.lista-destinos {
+  max-height: 300px;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.destino-opcion {
+  border: none;
+  background: #f6f8fa;
+  padding: 11px 9px;
+  border-radius: 9px;
+  text-align: left;
+  cursor: pointer;
+  color: #283346;
+}
+
+.destino-opcion:hover,
+.destino-opcion.seleccionado {
+  background: #e4f7f3;
+  color: #087d72;
+}
+
+.fecha-dropdown {
+  width: 420px;
+}
+
+.fecha-campos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.fecha-campos label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.fecha-campos label span {
+  font-size: 10px;
+  font-weight: 900;
+  color: #7c8794;
+}
+
+.fecha-campos input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px solid #dfe5ea;
+  border-radius: 9px;
+}
+
+.boton-listo {
+  width: 100%;
+  margin-top: 18px;
+  padding: 12px;
+  border: none;
+  border-radius: 9px;
+  background: #172033;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* VIAJEROS */
+
+.viajeros-dropdown {
+  width: 360px;
+  left: auto;
+  right: 0;
+}
+
+.contador {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #edf0f2;
+}
+
+.contador > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.contador span {
+  font-size: 11px;
+  color: #8a949e;
+}
+
+.contador-controles {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contador-controles button {
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  border: 1px solid #ccd5dc;
+  background: white;
+  cursor: pointer;
+}
+
+.contador-controles b {
+  min-width: 15px;
+  text-align: center;
+}
+
+/* CONFIANZA */
+
+.hero-confianza {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 25px;
+}
+
+.hero-confianza span {
+  color: rgba(255,255,255,.9);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* SECCIONES */
+
+.seccion {
+  width: min(1180px,92%);
+  margin: auto;
+  padding: 80px 0;
+}
+
+.seccion-encabezado {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 30px;
+  margin-bottom: 35px;
+}
+
+.seccion-encabezado.centrado {
+  display: block;
+  text-align: center;
+}
+
+.seccion-etiqueta {
+  color: #16a095;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.seccion-encabezado h2 {
+  margin: 8px 0;
+  font-size: 38px;
+  line-height: 1.1;
+}
+
+.seccion-encabezado h2 span {
+  color: #16a095;
+}
+
+.seccion-encabezado p {
+  color: #77818e;
+}
+
+.boton-ver-todos {
+  border: none;
+  background: transparent;
+  color: #118c81;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* PAQUETES */
+
+.grid-paquetes-inicio {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 20px;
+}
+
+.card-paquete-inicio {
+  overflow: hidden;
+  border-radius: 16px;
+  background: white;
+  border: 1px solid #e8ecef;
+  box-shadow: 0 7px 25px rgba(20,35,50,.07);
+  transition: .25s;
+}
+
+.card-paquete-inicio:hover {
+  transform: translateY(-6px);
+}
+
+.card-imagen {
+  height: 210px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-imagen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 7px 10px;
+  border-radius: 20px;
+  background: white;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.card-contenido {
+  padding: 18px;
+}
+
+.card-destino {
+  font-size: 11px;
+  color: #75818d;
+  font-weight: 700;
+}
+
+.card-contenido h3 {
+  font-size: 18px;
+  margin: 8px 0 15px;
+}
+
+.card-precio {
+  margin-bottom: 15px;
+}
+
+.card-precio span {
+  display: block;
+  color: #89939d;
+  font-size: 10px;
+}
+
+.card-precio strong {
+  font-size: 20px;
+}
+
+.card-precio small {
+  font-size: 10px;
+  color: #89939d;
+}
+
+.card-contenido > button {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #dce4e8;
+  border-radius: 8px;
+  background: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* DESTINOS */
+
+.destinos-inicio {
+  background: #f7fafb;
+}
+
+.grid-destinos {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 18px;
+}
+
+.destino-card {
+  height: 300px;
+  border: none;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+  background: #172033;
+  text-align: left;
+}
+
+.destino-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.destino-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  padding: 24px;
+  background: linear-gradient(transparent 35%,rgba(0,0,0,.78));
+  color: white;
+}
+
+.destino-overlay h3 {
+  margin: 0 0 5px;
+  font-size: 25px;
+}
+
+.destino-overlay p {
+  margin: 0;
+  font-size: 12px;
+}
+
+/* BENEFICIOS */
+
+.beneficios {
+  width: min(1180px,92%);
+  margin: auto;
+  padding: 75px 0;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 25px;
+}
+
+.beneficio {
+  text-align: center;
+}
+
+.beneficio > div {
+  font-size: 35px;
+}
+
+.beneficio h3 {
+  font-size: 16px;
+}
+
+.beneficio p {
+  color: #7d8792;
+  font-size: 13px;
+}
+
+/* CTA */
+
+.cta-mareva {
+  min-height: 400px;
+  padding: 70px 8%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg,rgba(9,36,48,.94),rgba(9,36,48,.55)),
+    url("/destinos/amazonas.jpg") center/cover;
+  color: white;
+}
+
+.cta-mareva > div {
+  max-width: 600px;
+}
+
+.cta-mareva h2 {
+  font-size: 48px;
+  line-height: 1.05;
+}
+
+.cta-mareva p {
+  color: rgba(255,255,255,.82);
+}
+
+.cta-mareva button {
+  padding: 14px 23px;
+  border: none;
+  border-radius: 9px;
+  background: #ff6b35;
+  color: white;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+/* FOOTER */
+
+.footer-mareva {
+  background: #101925;
+  color: white;
+  padding: 45px 8% 20px;
+}
+
+.footer-contenido {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-mareva {
+  width: 43px;
+  height: 43px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #18a89b;
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.footer-logo strong {
+  display: block;
+}
+
+.footer-logo span {
+  display: block;
+  font-size: 8px;
+  color: #7e8c99;
+}
+
+.footer-contenido > p {
+  color: #8894a0;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,.08);
+  padding-top: 20px;
+  color: #6e7a87;
+  font-size: 11px;
+}
+
+/* RESPONSIVE */
+
+@media (max-width:1000px) {
+
+  .buscador-interactivo {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .grid-paquetes-inicio {
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .beneficios {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+@media (max-width:700px) {
+
+  .hero-contenido {
+    padding: 60px 0;
+  }
+
+  .hero-contenido h1 {
+    font-size: 42px;
+  }
+
+  .buscador-interactivo {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .buscador-item {
+    border-right: none;
+  }
+
+  .boton-buscar {
+    min-height: 55px;
+  }
+
+  .buscador-dropdown {
+    position: fixed;
+    top: 15%;
+    left: 5%;
+    width: 90%;
+    box-sizing: border-box;
+  }
+
+  .lista-destinos {
+    grid-template-columns: 1fr;
+  }
+
+  .fecha-campos {
+    grid-template-columns: 1fr;
+  }
+
+  .seccion {
+    padding: 55px 0;
+  }
+
+  .seccion-encabezado {
+    display: block;
+  }
+
+  .grid-paquetes-inicio,
+  .grid-destinos {
+    grid-template-columns: 1fr;
+  }
+
+  .beneficios {
+    grid-template-columns: 1fr;
+  }
+
+  .cta-mareva h2 {
+    font-size: 38px;
+  }
+
+  .footer-contenido {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
