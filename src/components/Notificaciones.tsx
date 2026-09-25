@@ -1,181 +1,298 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import "./Notificaciones.css";
 
-import { fetchWeather } from "./redux/weatherSlice";
-
-import type {
-  AppDispatch,
-  RootState,
-} from "./redux/store";
-
-function descripcionClima(codigo: number): string {
-  if (codigo === 0) return "Cielo despejado";
-  if (codigo <= 3) return "Parcialmente nublado";
-  if (codigo <= 48) return "Niebla";
-  if (codigo <= 57) return "Llovizna";
-  if (codigo <= 67) return "Lluvia";
-  if (codigo <= 77) return "Nieve";
-  if (codigo <= 82) return "Chubascos";
-  if (codigo <= 86) return "Chubascos de nieve";
-
-  return "Tormenta";
+interface Notificacion {
+  id_notificacion?: number;
+  id?: number;
+  mensaje?: string;
+  titulo?: string;
+  leida?: boolean;
+  estado?: string;
+  fecha?: string;
+  fecha_creacion?: string;
 }
 
-function Notificaciones() {
-  const dispatch = useDispatch<AppDispatch>();
+interface NotificacionesProps {
+  mostrarMensaje: (titulo: string, texto: string) => void;
+}
 
-  const {
-    data,
-    status,
-    error,
-    lastUpdated,
-  } = useSelector(
-    (state: RootState) => state.weather
-  );
+function Notificaciones({
+  mostrarMensaje,
+}: NotificacionesProps) {
+  const [notificaciones, setNotificaciones] = useState<
+    Notificacion[]
+  >([]);
 
-  const [abierto, setAbierto] = useState(false);
+  const [cargando, setCargando] = useState(true);
+
+  const cargarNotificaciones = async () => {
+    const token = localStorage.getItem("mareva_token");
+
+    if (!token) {
+      setCargando(false);
+      return;
+    }
+
+    try {
+      const respuesta = await axios.get(
+        "http://127.0.0.1:5000/mis-notificaciones",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const datos = respuesta.data;
+
+      if (Array.isArray(datos)) {
+        setNotificaciones(datos);
+      } else if (Array.isArray(datos.notificaciones)) {
+        setNotificaciones(datos.notificaciones);
+      } else {
+        setNotificaciones([]);
+      }
+    } catch (error) {
+      console.error(
+        "Error cargando notificaciones:",
+        error
+      );
+
+      mostrarMensaje(
+        "Error",
+        "No fue posible cargar tus notificaciones."
+      );
+    } finally {
+      setCargando(false);
+    }
+  };
 
   useEffect(() => {
-    dispatch(fetchWeather());
+    cargarNotificaciones();
+  }, []);
 
-    const interval = window.setInterval(() => {
-      dispatch(fetchWeather());
-    }, 60000);
+  const marcarComoLeida = async (
+    notificacion: Notificacion
+  ) => {
+    const id =
+      notificacion.id_notificacion ??
+      notificacion.id;
 
-    return () => {
-      window.clearInterval(interval);
-    };
-  }, [dispatch]);
+    if (!id || notificacion.leida === true) {
+      return;
+    }
 
-  const horaActualizacion = lastUpdated
-    ? new Date(lastUpdated).toLocaleTimeString(
-        "es-CO",
+    const token = localStorage.getItem("mareva_token");
+
+    if (!token) {
+      return;
+    }
+
+    try {
+      await axios.put(
+        `http://127.0.0.1:5000/mis-notificaciones/${id}/leer`,
+        {},
         {
-          hour: "2-digit",
-          minute: "2-digit",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      )
-    : null;
+      );
 
-  return (
-    <div className="notificaciones-flotantes">
+      setNotificaciones((actuales) =>
+        actuales.map((item) => {
+          const itemId =
+            item.id_notificacion ?? item.id;
 
-      {!abierto && (
-        <button
-          className="campana-notificaciones"
-          onClick={() => setAbierto(true)}
-          aria-label="Abrir notificaciones"
-        >
-          🔔
-        </button>
-      )}
+          if (itemId === id) {
+            return {
+              ...item,
+              leida: true,
+              estado: "Leída",
+            };
+          }
 
-      {abierto && (
-        <div className="panel-clima">
+          return item;
+        })
+      );
+    } catch (error) {
+      console.error(
+        "Error marcando notificación:",
+        error
+      );
+    }
+  };
 
-          <div className="panel-clima-header">
-            <div>
-              <span className="panel-clima-icono">
-                🌦️
-              </span>
+  const obtenerMensaje = (
+    notificacion: Notificacion
+  ) => {
+    return (
+      notificacion.mensaje ||
+      notificacion.titulo ||
+      "Tienes una nueva notificación."
+    );
+  };
 
-              <div>
-                <strong>
-                  Clima en tu ciudad
-                </strong>
+  const obtenerFecha = (
+    notificacion: Notificacion
+  ) => {
+    return (
+      notificacion.fecha_creacion ||
+      notificacion.fecha ||
+      ""
+    );
+  };
 
-                <small>
-                  Información en tiempo real
-                </small>
-              </div>
-            </div>
+  const notificacionesNoLeidas =
+    notificaciones.filter(
+      (notificacion) =>
+        notificacion.leida !== true &&
+        notificacion.estado !== "Leída"
+    ).length;
 
-            <button
-              className="cerrar-clima"
-              onClick={() => setAbierto(false)}
-              aria-label="Cerrar"
-            >
-              ×
-            </button>
+  if (cargando) {
+    return (
+      <section className="notificaciones-page">
+        <div className="notificaciones-cargando">
+          <div className="notificaciones-spinner">
+            ⟳
           </div>
 
-          {status === "loading" && !data && (
-            <p className="clima-mensaje">
-              Consultando el clima...
-            </p>
-          )}
+          <p>
+            Cargando tus notificaciones...
+          </p>
+        </div>
+      </section>
+    );
+  }
 
-          {status === "failed" && (
-            <p className="clima-mensaje clima-error">
-              {error}
-            </p>
-          )}
+  return (
+    <section className="notificaciones-page">
 
-          {data && (
-            <div className="clima-contenido">
+      <div className="notificaciones-encabezado">
 
-              <div className="clima-ciudad">
-                <span>📍</span>
+        <div>
+          <span className="notificaciones-etiqueta">
+            MAREVA · NOTIFICACIONES
+          </span>
 
-                <div>
-                  <strong>
-                    Bogotá, Colombia
-                  </strong>
+          <h1>
+            Mis notificaciones 🔔
+          </h1>
 
-                  <small>
-                    Clima actual
-                  </small>
-                </div>
-              </div>
+          <p>
+            Aquí encontrarás las novedades
+            relacionadas con tus reservas y
+            tu cuenta.
+          </p>
+        </div>
 
-              <div className="clima-temperatura">
-                {Math.round(data.temperature)}°
-                <span>C</span>
-              </div>
+        {notificacionesNoLeidas > 0 && (
+          <div className="notificaciones-contador">
+            {notificacionesNoLeidas}{" "}
+            {notificacionesNoLeidas === 1
+              ? "sin leer"
+              : "sin leer"}
+          </div>
+        )}
 
-              <p className="clima-descripcion">
-                {descripcionClima(
-                  data.weatherCode
-                )}
-              </p>
+      </div>
 
-              <div className="clima-datos">
+      {notificaciones.length === 0 ? (
+        <div className="notificaciones-vacio">
 
-                <div>
-                  <span>💧</span>
-                  <div>
-                    <small>Humedad</small>
-                    <strong>
-                      {data.humidity}%
-                    </strong>
+          <div className="notificaciones-vacio-icono">
+            🔔
+          </div>
+
+          <h2>
+            No tienes notificaciones
+          </h2>
+
+          <p>
+            Cuando tengas novedades sobre
+            tus reservas aparecerán aquí.
+          </p>
+
+        </div>
+      ) : (
+        <div className="notificaciones-lista">
+
+          {notificaciones.map(
+            (notificacion, indice) => {
+              const id =
+                notificacion.id_notificacion ??
+                notificacion.id ??
+                indice;
+
+              const noLeida =
+                notificacion.leida !== true &&
+                notificacion.estado !== "Leída";
+
+              return (
+                <article
+                  key={id}
+                  className={`notificacion-card ${
+                    noLeida
+                      ? "notificacion-no-leida"
+                      : ""
+                  }`}
+                  onClick={() =>
+                    marcarComoLeida(notificacion)
+                  }
+                >
+
+                  <div className="notificacion-icono">
+                    {noLeida ? "🔔" : "✓"}
                   </div>
-                </div>
 
-                <div>
-                  <span>💨</span>
-                  <div>
-                    <small>Viento</small>
-                    <strong>
-                      {data.windSpeed} km/h
-                    </strong>
+                  <div className="notificacion-contenido">
+
+                    <div className="notificacion-arriba">
+
+                      <h3>
+                        {notificacion.titulo ||
+                          "Notificación de MAREVA"}
+                      </h3>
+
+                      {noLeida && (
+                        <span className="notificacion-nueva">
+                          NUEVA
+                        </span>
+                      )}
+
+                    </div>
+
+                    <p>
+                      {obtenerMensaje(
+                        notificacion
+                      )}
+                    </p>
+
+                    {obtenerFecha(
+                      notificacion
+                    ) && (
+                      <span className="notificacion-fecha">
+                        {obtenerFecha(
+                          notificacion
+                        )}
+                      </span>
+                    )}
+
                   </div>
-                </div>
 
-              </div>
-
-              {horaActualizacion && (
-                <small className="clima-actualizado">
-                  Actualizado a las{" "}
-                  {horaActualizacion}
-                </small>
-              )}
-
-            </div>
+                </article>
+              );
+            }
           )}
+
         </div>
       )}
-    </div>
+
+    </section>
   );
 }
 
 export default Notificaciones;
+
