@@ -1,0 +1,1067 @@
+/* =========================================================
+   MAREVA - INICIO
+   Morado solo en detalles
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.inicio {
+  width: 100%;
+  background: #ffffff;
+  color: #241936;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+  min-height: 720px;
+  position: relative;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  background: #24133a;
+}
+
+.hero-fondo {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(32, 13, 52, 0.88) 0%,
+      rgba(71, 37, 101, 0.48) 48%,
+      rgba(60, 30, 80, 0.20) 100%
+    ),
+    url("/destinos/tayrona.jpg") center / cover no-repeat;
+}
+
+.hero-contenido {
+  width: min(1315px, 92%);
+  margin: 0 auto;
+  position: relative;
+  z-index: 5;
+  padding: 65px 0 110px;
+}
+
+/* ================= TEXTO HERO ================= */
+
+.hero-superior {
+  max-width: 800px;
+  color: white;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 18px;
+  border: 1px solid rgba(255,255,255,.45);
+  border-radius: 30px;
+  background: rgba(255,255,255,.10);
+  backdrop-filter: blur(8px);
+  color: white;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1.5px;
+}
+
+.hero-superior h1 {
+  margin: 28px 0 18px;
+  color: white;
+  font-size: clamp(48px, 6vw, 76px);
+  line-height: 1.02;
+  letter-spacing: -3px;
+  font-weight: 900;
+}
+
+.hero-superior h1 span {
+  color: #c084fc;
+}
+
+.hero-superior p {
+  max-width: 700px;
+  margin: 0 0 35px;
+  color: rgba(255,255,255,.92);
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* ================= BOTONES ================= */
+
+.hero-botones {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 35px;
+}
+
+.hero-botones button {
+  padding: 14px 25px;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.boton-principal {
+  border: none;
+  background: #9747e8;
+  color: white;
+  box-shadow: 0 8px 22px rgba(92, 38, 132, .35);
+}
+
+.boton-principal:hover {
+  background: #8538d2;
+}
+
+.boton-secundario {
+  border: 1px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.12);
+  color: white;
+  backdrop-filter: blur(5px);
+}
+
+/* ================= BUSCADOR ================= */
+
+.buscador {
+  width: 100%;
+  max-width: 1180px;
+  min-height: 105px;
+
+  display: grid;
+  grid-template-columns:
+    1.25fr
+    1.25fr
+    1fr
+    165px;
+
+  align-items: stretch;
+
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 9px;
+
+  box-shadow: 0 18px 45px rgba(25, 10, 40, .28);
+
+  position: relative;
+  z-index: 30;
+}
+
+/* ================= CAMPOS ================= */
+
+.campo {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  padding: 17px 24px;
+
+  border-right: 1px solid #e8e1ee;
+
+  cursor: pointer;
+
+  transition: background .2s ease;
+}
+
+.campo:hover,
+.campo-activo {
+  background: #faf7fc;
+  border-radius: 12px;
+}
+
+.campo-icono {
+  width: 43px;
+  height: 43px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f0e5fa;
+  color: #783bb0;
+
+  font-size: 19px;
+}
+
+.campo-info {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.campo-info span {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  color: #806d8d;
+}
+
+.campo-info strong {
+  font-size: 14px;
+  color: #241936;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.campo-info small {
+  font-size: 10px;
+  color: #8d8295;
+}
+
+/* ================= BOTÓN BUSCAR ================= */
+
+.boton-buscar {
+  border: none;
+  margin: 5px;
+
+  border-radius: 14px;
+
+  background: #9144e7;
+  color: white;
+
+  font-size: 15px;
+  font-weight: 900;
+
+  cursor: pointer;
+
+  transition: .2s ease;
+
+  box-shadow: 0 8px 20px rgba(111, 43, 164, .25);
+}
+
+.boton-buscar:hover {
+  background: #7e35d0;
+  transform: translateY(-2px);
+}
+
+/* ================= DROPDOWNS ================= */
+
+.dropdown {
+  position: absolute;
+
+  top: calc(100% + 12px);
+  left: 0;
+
+  width: 380px;
+
+  padding: 22px;
+
+  border-radius: 16px;
+
+  background: white;
+
+  box-shadow: 0 20px 55px rgba(40, 20, 55, .25);
+
+  border: 1px solid #eee7f3;
+
+  z-index: 100;
+
+  color: #241936;
+
+  cursor: default;
+}
+
+.dropdown h3 {
+  margin: 0 0 5px;
+  color: #241936;
+  font-size: 18px;
+}
+
+.dropdown > p {
+  margin: 0 0 18px;
+  color: #83768b;
+  font-size: 12px;
+}
+
+/* ================= DESTINOS ================= */
+
+.destinos-lista {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+
+  max-height: 310px;
+  overflow-y: auto;
+}
+
+.destino-opcion {
+  padding: 11px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #faf8fc;
+
+  text-align: left;
+
+  color: #34263e;
+  font-size: 12px;
+
+  cursor: pointer;
+
+  transition: .2s ease;
+}
+
+.destino-opcion:hover,
+.destino-opcion.seleccionado {
+  background: #eee0fa;
+  color: #783bb0;
+}
+
+/* ================= FECHAS ================= */
+
+.fecha-dropdown {
+  width: 470px;
+}
+
+.fecha-automatica {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.fecha-automatica label,
+.fecha-regreso {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  padding: 13px;
+
+  border: 1px solid #e5ddea;
+  border-radius: 10px;
+
+  background: #fcfbfd;
+}
+
+.fecha-automatica label span,
+.fecha-regreso span {
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  color: #81738c;
+}
+
+.fecha-automatica input {
+  width: 100%;
+
+  padding: 10px;
+
+  border: 1px solid #dcd2e2;
+  border-radius: 8px;
+
+  background: white;
+
+  color: #241936;
+
+  font-size: 12px;
+}
+
+.fecha-regreso {
+  justify-content: center;
+
+  background: #f6effb;
+  border-color: #dbc8e8;
+}
+
+.fecha-regreso strong {
+  color: #783bb0;
+  font-size: 15px;
+}
+
+.fecha-regreso small {
+  color: #82758a;
+  font-size: 10px;
+}
+
+.aviso-fecha {
+  margin-top: 14px;
+  padding: 11px;
+
+  border-radius: 9px;
+
+  background: #f8f5fa;
+
+  color: #776b80;
+
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* ================= VIAJEROS ================= */
+
+.viajeros-dropdown {
+  left: auto;
+  right: 0;
+  width: 380px;
+}
+
+.viajero-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 15px 0;
+
+  border-bottom: 1px solid #eee8f2;
+}
+
+.viajero-row > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.viajero-row strong {
+  color: #2b2032;
+  font-size: 14px;
+}
+
+.viajero-row small {
+  color: #8c808f;
+  font-size: 10px;
+}
+
+.contador {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contador button {
+  width: 32px;
+  height: 32px;
+
+  border: 1px solid #d8cce0;
+  border-radius: 50%;
+
+  background: white;
+
+  color: #64318e;
+
+  font-size: 17px;
+
+  cursor: pointer;
+}
+
+.contador button:hover {
+  background: #f4eafa;
+  border-color: #9b5bd0;
+}
+
+.dropdown-listo {
+  width: 100%;
+
+  margin-top: 18px;
+  padding: 12px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #9144e7;
+
+  color: white;
+
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+/* ================= BENEFICIOS ================= */
+
+.beneficios-hero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+
+  margin-top: 22px;
+}
+
+.beneficios-hero span {
+  color: rgba(255,255,255,.90);
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ================= SECCIONES ================= */
+
+.seccion {
+  width: min(1180px,92%);
+  margin: 0 auto;
+  padding: 75px 0;
+}
+
+.titulo-seccion {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+
+  gap: 25px;
+
+  margin-bottom: 32px;
+}
+
+.titulo-seccion > div > span,
+.titulo-centro > span {
+  color: #8b48b9;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 2px;
+}
+
+.titulo-seccion h2,
+.titulo-centro h2 {
+  margin: 8px 0;
+
+  color: #241936;
+
+  font-size: 36px;
+  line-height: 1.1;
+}
+
+.titulo-seccion h2 strong,
+.titulo-centro h2 strong {
+  color: #8b48b9;
+}
+
+.titulo-seccion p,
+.titulo-centro p {
+  margin: 0;
+
+  color: #7c7182;
+
+  font-size: 14px;
+}
+
+.titulo-seccion > button {
+  border: none;
+  background: none;
+
+  color: #7d3eaa;
+
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+/* ================= PAQUETES ================= */
+
+.paquetes-grid {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 20px;
+}
+
+.paquete-card {
+  overflow: hidden;
+
+  background: white;
+
+  border: 1px solid #eee8f2;
+  border-radius: 15px;
+
+  box-shadow: 0 8px 28px rgba(40, 20, 55, .07);
+
+  transition: .25s ease;
+}
+
+.paquete-card:hover {
+  transform: translateY(-5px);
+
+  box-shadow: 0 16px 35px rgba(60, 25, 80, .13);
+}
+
+.paquete-imagen {
+  height: 205px;
+
+  position: relative;
+  overflow: hidden;
+}
+
+.paquete-imagen img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: .35s ease;
+}
+
+.paquete-card:hover .paquete-imagen img {
+  transform: scale(1.05);
+}
+
+.etiqueta-oferta {
+  position: absolute;
+
+  top: 12px;
+  left: 12px;
+
+  padding: 7px 10px;
+
+  border-radius: 20px;
+
+  background: white;
+
+  color: #783bb0;
+
+  font-size: 9px;
+  font-weight: 900;
+}
+
+.paquete-info {
+  padding: 17px;
+}
+
+.paquete-destino {
+  color: #83758c;
+
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.paquete-info h3 {
+  margin: 8px 0 12px;
+
+  color: #281d32;
+
+  font-size: 18px;
+}
+
+.paquete-detalles {
+  display: flex;
+
+  gap: 12px;
+
+  margin-bottom: 15px;
+
+  color: #857a8b;
+
+  font-size: 10px;
+}
+
+.precio small,
+.precio span {
+  color: #918694;
+  font-size: 9px;
+}
+
+.precio strong {
+  display: block;
+
+  margin: 2px 0;
+
+  color: #63308f;
+
+  font-size: 20px;
+}
+
+.paquete-info > button {
+  width: 100%;
+
+  margin-top: 15px;
+  padding: 11px;
+
+  border: 1px solid #d9cee0;
+  border-radius: 8px;
+
+  background: white;
+
+  color: #713ba0;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: .2s ease;
+}
+
+.paquete-info > button:hover {
+  background: #7d3eaa;
+
+  border-color: #7d3eaa;
+
+  color: white;
+}
+
+/* ================= DESTINOS ================= */
+
+.destinos {
+  background: #faf9fb;
+}
+
+.destinos-grid {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+
+  gap: 18px;
+}
+
+.destino-card {
+  height: 290px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 16px;
+
+  cursor: pointer;
+
+  background: #321b40;
+
+  text-align: left;
+}
+
+.destino-card img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  transition: .4s ease;
+}
+
+.destino-card:hover img {
+  transform: scale(1.06);
+}
+
+.destino-card-overlay {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+
+  align-items: end;
+  justify-content: space-between;
+
+  padding: 23px;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      transparent 30%,
+      rgba(30, 18, 38, .85)
+    );
+}
+
+.destino-card-overlay h3 {
+  margin: 0 0 5px;
+
+  font-size: 24px;
+}
+
+.destino-card-overlay p {
+  margin: 0;
+
+  color: rgba(255,255,255,.85);
+
+  font-size: 11px;
+}
+
+.destino-card-overlay > span {
+  font-size: 27px;
+
+  color: #d7a9f4;
+}
+
+/* ================= VENTAJAS ================= */
+
+.ventajas {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 30px;
+}
+
+.ventaja {
+  text-align: center;
+}
+
+.ventaja > div {
+  width: 65px;
+  height: 65px;
+
+  margin: 0 auto 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  background: #f1e8f7;
+
+  color: #8244a8;
+
+  font-size: 30px;
+}
+
+.ventaja h3 {
+  margin: 0 0 7px;
+
+  color: #2a2030;
+
+  font-size: 16px;
+}
+
+.ventaja p {
+  margin: 0;
+
+  color: #7d7481;
+
+  font-size: 12px;
+
+  line-height: 1.5;
+}
+
+/* ================= CTA ================= */
+
+.cta {
+  min-height: 410px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 70px 8%;
+
+  color: white;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(39, 19, 51, .90),
+      rgba(89, 51, 111, .55)
+    ),
+    url("/destinos/amazonas.jpg")
+    center / cover no-repeat;
+}
+
+.cta > div {
+  max-width: 600px;
+}
+
+.cta > div > span {
+  color: #d6a6f0;
+
+  font-size: 10px;
+  font-weight: 900;
+
+  letter-spacing: 1.5px;
+}
+
+.cta h2 {
+  margin: 15px 0;
+
+  color: white;
+
+  font-size: 48px;
+  line-height: 1.05;
+}
+
+.cta p {
+  color: rgba(255,255,255,.82);
+
+  line-height: 1.6;
+}
+
+.cta button {
+  margin-top: 10px;
+
+  padding: 14px 23px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #9144e7;
+
+  color: white;
+
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+  padding: 45px 8% 20px;
+
+  background: #21152a;
+
+  color: white;
+}
+
+.footer-principal {
+  display: grid;
+
+  grid-template-columns: 2fr 1fr 1fr;
+
+  gap: 50px;
+
+  padding-bottom: 30px;
+}
+
+.logo-footer {
+  font-size: 24px;
+
+  font-weight: 900;
+
+  letter-spacing: 2px;
+
+  color: #d8aaf0;
+}
+
+.footer-principal p {
+  color: #a89da9;
+
+  font-size: 12px;
+}
+
+.footer-principal h4 {
+  margin: 0 0 12px;
+
+  color: #eadcf0;
+}
+
+.footer-principal span {
+  display: block;
+
+  margin-bottom: 7px;
+
+  color: #a197a4;
+
+  font-size: 11px;
+}
+
+.footer-bottom {
+  padding-top: 20px;
+
+  border-top: 1px solid rgba(255,255,255,.10);
+
+  color: #817682;
+
+  font-size: 10px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1000px) {
+
+  .buscador {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .campo:nth-child(2) {
+    border-right: none;
+  }
+
+  .paquetes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ventajas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+
+  .hero {
+    min-height: auto;
+  }
+
+  .hero-contenido {
+    padding: 55px 0 70px;
+  }
+
+  .hero-superior h1 {
+    font-size: 43px;
+    letter-spacing: -2px;
+  }
+
+  .buscador {
+    display: flex;
+    flex-direction: column;
+    padding: 7px;
+  }
+
+  .campo {
+    min-height: 70px;
+
+    border-right: none;
+
+    border-bottom: 1px solid #e8e1ee;
+  }
+
+  .boton-buscar {
+    min-height: 55px;
+  }
+
+  .dropdown {
+    position: fixed;
+
+    top: 12%;
+    left: 5%;
+
+    width: 90%;
+
+    max-height: 75vh;
+
+    overflow-y: auto;
+  }
+
+  .destinos-lista,
+  .fecha-automatica {
+    grid-template-columns: 1fr;
+  }
+
+  .seccion {
+    padding: 55px 0;
+  }
+
+  .titulo-seccion {
+    display: block;
+  }
+
+  .titulo-seccion > button {
+    margin-top: 15px;
+  }
+
+  .paquetes-grid,
+  .destinos-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ventajas {
+    grid-template-columns: 1fr;
+  }
+
+  .cta h2 {
+    font-size: 38px;
+  }
+
+  .footer-principal {
+    grid-template-columns: 1fr;
+  }
+}
