@@ -3,113 +3,271 @@ import type {
   ChangeEvent,
   FormEvent,
 } from "react";
+import axios from "axios";
 import CardAccion from "./CardAccion";
+import "./Login.css";
+
+const API = "http://127.0.0.1:5000";
+
+interface Usuario {
+  id_usuario: number;
+  nombre: string;
+  correo: string;
+  rol: string;
+}
 
 interface LoginProps {
   mostrarMensaje: (
     titulo: string,
     mensaje: string
   ) => void;
+
+  iniciarSesion: (
+    usuario: Usuario,
+    token: string
+  ) => void;
+
+  irA: (ruta: string) => void;
 }
 
-function Login({ mostrarMensaje }: LoginProps) {
-  const [correo, setCorreo] = useState<string>("");
-  const [contrasena, setContrasena] =
-    useState<string>("");
+const Login = ({
+  mostrarMensaje,
+  iniciarSesion,
+  irA,
+}: LoginProps) => {
+  const [correo, setCorreo] = useState("");
+  const [contrasena, setContrasena] = useState("");
+  const [tipoIngreso, setTipoIngreso] = useState<
+    "cliente" | "admin"
+  >("cliente");
+
+  const [cargando, setCargando] = useState(false);
 
   const manejarCorreo = (
-    event: ChangeEvent<HTMLInputElement>
+    evento: ChangeEvent<HTMLInputElement>
   ) => {
-    setCorreo(event.target.value);
+    setCorreo(evento.target.value);
   };
 
   const manejarContrasena = (
-    event: ChangeEvent<HTMLInputElement>
+    evento: ChangeEvent<HTMLInputElement>
   ) => {
-    setContrasena(event.target.value);
+    setContrasena(evento.target.value);
   };
 
-  const iniciarSesion = (
-    event: FormEvent<HTMLFormElement>
+  const manejarSubmit = async (
+    evento: FormEvent<HTMLFormElement>
   ) => {
-    event.preventDefault();
+    evento.preventDefault();
 
-    mostrarMensaje(
-      "¡Bienvenido a MAREVA!",
-      `Has iniciado sesión correctamente con el correo ${correo}. ¡Prepárate para continuar tu viaje!`
-    );
+    if (!correo.trim()) {
+      mostrarMensaje(
+        "Correo requerido",
+        "Ingresa tu correo electrónico."
+      );
+      return;
+    }
 
-    console.log("Acción realizada en Login");
-    console.log("Correo:", correo);
-    console.log("Contraseña:", contrasena);
+    if (!contrasena) {
+      mostrarMensaje(
+        "Contraseña requerida",
+        "Ingresa tu contraseña."
+      );
+      return;
+    }
+
+    try {
+      setCargando(true);
+
+      const respuesta = await axios.post(
+        `${API}/login`,
+        {
+          correo: correo.trim(),
+          contrasena,
+          tipo_ingreso: tipoIngreso,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const token = respuesta.data?.token;
+      const usuario = respuesta.data?.usuario;
+
+      if (!token || !usuario) {
+        mostrarMensaje(
+          "Error",
+          "El servidor no devolvió correctamente los datos de inicio de sesión."
+        );
+        return;
+      }
+
+      localStorage.setItem("token", token);
+      localStorage.setItem(
+        "mareva_token",
+        token
+      );
+
+      localStorage.setItem(
+        "usuario",
+        JSON.stringify(usuario)
+      );
+
+      iniciarSesion(usuario, token);
+
+      mostrarMensaje(
+        "Bienvenido a MAREVA",
+        `Hola ${usuario.nombre}, has iniciado sesión correctamente.`
+      );
+    } catch (error: any) {
+      console.error(
+        "Error iniciando sesión:",
+        error
+      );
+
+      const mensaje =
+        error?.response?.data?.mensaje ||
+        error?.response?.data?.message ||
+        "Correo o contraseña incorrectos.";
+
+      mostrarMensaje(
+        "No se pudo iniciar sesión",
+        mensaje
+      );
+    } finally {
+      setCargando(false);
+    }
   };
 
   return (
-    <section
-      className="formulario-section"
-      id="login"
-    >
-      <div className="formulario-card">
-        <div className="formulario-header">
-          <span>MAREVA · ACCESO</span>
+    <section className="login-section">
+      <div className="login-card">
 
-          <h1>Iniciar sesión</h1>
+        <div className="login-header">
+          <span className="login-icono">
+            ✈️
+          </span>
+
+          <h1>Bienvenido a MAREVA</h1>
 
           <p>
-            Ingresa a tu cuenta para continuar tu viaje.
+            Inicia sesión para continuar.
           </p>
         </div>
 
-        <form onSubmit={iniciarSesion}>
-          <label htmlFor="correo">
-            Correo electrónico
-          </label>
+        <div className="login-tipos">
+          <button
+            type="button"
+            className={
+              tipoIngreso === "cliente"
+                ? "activo"
+                : ""
+            }
+            onClick={() =>
+              setTipoIngreso("cliente")
+            }
+          >
+            👤 Cliente
+          </button>
 
-          <input
-            id="correo"
-            type="email"
-            value={correo}
-            onChange={manejarCorreo}
-            placeholder="correo@ejemplo.com"
-            required
-          />
+          <button
+            type="button"
+            className={
+              tipoIngreso === "admin"
+                ? "activo"
+                : ""
+            }
+            onClick={() =>
+              setTipoIngreso("admin")
+            }
+          >
+            🛠️ Administrador
+          </button>
+        </div>
 
-          <label htmlFor="contrasena">
-            Contraseña
-          </label>
+        <form
+          className="login-form"
+          onSubmit={manejarSubmit}
+        >
+          <div className="login-campo">
+            <label htmlFor="correo">
+              Correo electrónico
+            </label>
 
-          <input
-            id="contrasena"
-            type="password"
-            value={contrasena}
-            onChange={manejarContrasena}
-            placeholder="Ingresa tu contraseña"
-            required
-          />
+            <div className="login-input-contenedor">
+              <span>✉️</span>
+
+              <input
+                id="correo"
+                type="email"
+                placeholder="correo@ejemplo.com"
+                value={correo}
+                onChange={manejarCorreo}
+                autoComplete="email"
+              />
+            </div>
+          </div>
+
+          <div className="login-campo">
+            <label htmlFor="contrasena">
+              Contraseña
+            </label>
+
+            <div className="login-input-contenedor">
+              <span>🔒</span>
+
+              <input
+                id="contrasena"
+                type="password"
+                placeholder="Ingresa tu contraseña"
+                value={contrasena}
+                onChange={manejarContrasena}
+                autoComplete="current-password"
+              />
+            </div>
+          </div>
 
           <button
             type="submit"
-            className="formulario-boton"
+            className="login-boton"
+            disabled={cargando}
           >
-            Iniciar sesión
+            {cargando ? (
+              <>
+                <span className="login-spinner"></span>
+                Iniciando sesión...
+              </>
+            ) : (
+              "Iniciar sesión"
+            )}
           </button>
         </form>
 
+        <div className="login-registro">
+          <p>
+            ¿No tienes una cuenta?
+          </p>
+
+          <button
+            type="button"
+            onClick={() => irA("registro")}
+          >
+            Crear una cuenta
+          </button>
+        </div>
+
         <CardAccion
-          titulo="¿Aún no tienes cuenta?"
-          texto="Regístrate en MAREVA y empieza a descubrir nuevos destinos."
-          estado="NUEVO"
-          boton="Crear cuenta"
-          onAccion={() =>
-            mostrarMensaje(
-              "¡Crear cuenta!",
-              "La opción de registro fue seleccionada. ¡Crea tu cuenta y comienza a descubrir Colombia!"
-            )
-          }
+          titulo="¿Quieres conocer nuestros paquetes?"
+          descripcion="Explora nuestros destinos antes de reservar."
+          textoBoton="Ver paquetes"
+          onClick={() => irA("paquetes")}
         />
+
       </div>
     </section>
   );
-}
+};
 
 export default Login;
